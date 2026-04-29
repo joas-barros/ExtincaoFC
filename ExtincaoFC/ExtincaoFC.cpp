@@ -48,6 +48,10 @@ void ExtincaoFC::Init()
 
 	goal2 = new Goal(player2, window->Width() - 130.0f, window->Height() - 300.0f);
 	scene->Add(goal2, STATIC);
+
+	// cria bola
+	ball = new Ball();
+	scene->Add(ball, MOVING);
 }
 
 // ------------------------------------------------------------------------------

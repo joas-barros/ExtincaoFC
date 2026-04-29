@@ -21,6 +21,7 @@
 #include "Player.h"
 #include "Grass.h"
 #include "Goal.h"
+#include "Ball.h"
 
 // ------------------------------------------------------------------------------
 
@@ -37,6 +38,8 @@ private:
 
 	Goal * goal1 = nullptr;
 	Goal * goal2 = nullptr;
+
+	Ball * ball = nullptr;
 
 public:
     static Scene * scene;           // gerenciador de cena
