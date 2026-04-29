@@ -9,8 +9,8 @@
 //
 **********************************************************************************/
 
-#ifndef _PLATFORMER_H_
-#define _PLATFORMER_H_
+#ifndef _EXTINCAOFC_H_
+#define _EXTINCAOFC_H_
 
 // ---------------------------------------------------------------------------------
 // Inclusões
@@ -18,9 +18,9 @@
 #include "Game.h"
 #include "Scene.h"
 #include "Audio.h"
-#include "Platform.h"
-#include "Background.h"
 #include "Player.h"
+#include "Grass.h"
+#include "Goal.h"
 
 // ------------------------------------------------------------------------------
 
@@ -28,11 +28,15 @@ enum { MUSIC, TRANSITION };
 
 // ------------------------------------------------------------------------------
 
-class Platformer : public Game
+class ExtincaoFC : public Game
 {
 private:
-    Player * player = nullptr;      // jogador
-    Background * backg = nullptr;   // pano de fundo
+    Player * player1 = nullptr; 
+	Player * player2 = nullptr;
+    Sprite * backg = nullptr;
+
+	Goal * goal1 = nullptr;
+	Goal * goal2 = nullptr;
 
 public:
     static Scene * scene;           // gerenciador de cena

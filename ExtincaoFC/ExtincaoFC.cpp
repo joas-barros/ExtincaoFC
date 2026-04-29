@@ -10,17 +10,17 @@
 **********************************************************************************/
 
 #include "Engine.h"
-#include "Platformer.h"
+#include "ExtincaoFC.h"
 #include "Resources.h"
 
 // -----------------------------------------------------------------------------
 
-Scene * Platformer::scene = nullptr;
-Audio * Platformer::audio = nullptr;
+Scene * ExtincaoFC::scene = nullptr;
+Audio * ExtincaoFC::audio = nullptr;
 
 // -----------------------------------------------------------------------------
 
-void Platformer::Init()
+void ExtincaoFC::Init()
 {
     // cria cena do jogo
     scene = new Scene();
@@ -29,44 +29,30 @@ void Platformer::Init()
 	audio = new Audio();
 
     // pano de fundo do jogo
-    backg = new Background();
-    scene->Add(backg, STATIC);
+    backg = new Sprite("Resources/background.png");
 
-    // cria jogador
-    player = new Player();
-    scene->Add(player, MOVING);
+	// cria gramado
+	Grass* grass = new Grass(window->CenterX(), window->Height());
+    scene->Add(grass, STATIC);
 
-    // cria plataformas
-    const int MaxPlat = 12;
-    Platform * plat[MaxPlat];
-    plat[0] = new Platform(700.0f, 100.0f, LARGE);
-    plat[1] = new Platform(1500.0f, 200.0f, LARGE);
-    plat[2] = new Platform(2000.0f, 50.0f, LARGE);
-    plat[3] = new Platform(2500.0f, 200.0f, LARGE);
-    plat[4] = new Platform(2950.0f, 50.0f, SMALL);
-    plat[5] = new Platform(3200.0f, 250.0f, MEDIUM);
-    plat[6] = new Platform(3500.0f, 40.0f, SMALL);
-    plat[7] = new Platform(3700.0f, 260.0f, SMALL);
-    plat[8] = new Platform(3900.0f, 80.0f, MEDIUM);
-    plat[9] = new Platform(4300.0f, 260.0f, LARGE);
-    plat[10] = new Platform(4900.0f, 40.0f, MEDIUM);
-    plat[11] = new Platform(5500.0f, 260.0f, LARGE);
+	// cria jogadores
+	player1 = new Player(TREX, 500.0f, window->Height() - 220.0f);
+	scene->Add(player1, MOVING);
 
-	// adicionando as plataformas na cena
-    for (int i = 0; i < MaxPlat; ++i)
-        scene->Add(plat[i], STATIC);
+	player2 = new Player(TRICERATOPS, window->Width() - 500.0f, window->Height() - 220.0f);
+	scene->Add(player2, MOVING);
 
-    // carregar os sons no sistema de audio
-	audio->Add(MUSIC, "Resources/Music.wav");
-	audio->Add(TRANSITION, "Resources/Transition.wav");
+	// cria metas
+	goal1 = new Goal(player1, 130.0f, window->Height() - 300.0f);
+	scene->Add(goal1, STATIC);
 
-    // inicia o jogo com uma música
-	audio->Play(MUSIC);
+	goal2 = new Goal(player2, window->Width() - 130.0f, window->Height() - 300.0f);
+	scene->Add(goal2, STATIC);
 }
 
 // ------------------------------------------------------------------------------
 
-void Platformer::Update()
+void ExtincaoFC::Update()
 {
     // sai com o pressionar do ESC
     if (window->KeyDown(VK_ESCAPE))
@@ -78,30 +64,27 @@ void Platformer::Update()
 
     scene->Update();
     scene->CollisionDetection();
-
-    // -------------------------------------------
-    // reinicia jogo se o personagem sair da tela
-    // -------------------------------------------
-    if (player->Y() > window->Height() || player->Y() < 0)
-    {
-        Finalize();
-        Init();
-    }
 } 
 
 // ------------------------------------------------------------------------------
 
-void Platformer::Draw()
+void ExtincaoFC::Draw()
 {
+	backg->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
     scene->Draw();
 } 
 
 // ------------------------------------------------------------------------------
 
-void Platformer::Finalize()
+void ExtincaoFC::Finalize()
 {
     delete scene;
+	delete backg;
 	delete audio;
+	delete player1;
+	delete player2;
+	delete goal1;
+	delete goal2;
 }
 
 
@@ -117,15 +100,15 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
     // configura motor
     engine->window->Mode(WINDOWED);
-    engine->window->Size(600, 300);
-    engine->window->Color(150, 200, 230);
-    engine->window->Title("Platformer");
+    engine->window->Size(1600, 860);
+    engine->window->Color(80, 80, 50);
+    engine->window->Title("ExtincaoFC");
     engine->window->Icon(IDI_ICON);
     //engine->window->Cursor(IDC_CURSOR);
     //engine->graphics->VSync(true);
     
     // inicia o jogo
-    engine->Start(new Platformer());
+    engine->Start(new ExtincaoFC());
 
     // destrói engine e jogo
     delete engine;

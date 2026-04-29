@@ -22,31 +22,35 @@
 
 // ------------------------------------------------------------------------------
 
-enum Gravity {NORMAL,INVERTED};         // tipo da gravidade
+enum Dinasaur {TREX, TRICERATOPS};        
 
 // ---------------------------------------------------------------------------------
 
 class Player : public Object
 {
 private:
-    TileSet   * tileset;                // folha de sprites do personagem
-    Animation * anim;                   // animação do personagem
-    uint      gravity;                  // gravidade atuando sobre o jogador
+    Sprite* sprite;
+	Dinasaur type;
+    uint score;
 
 public:
-    Player();                           // construtor
+    Player(Dinasaur type, float posX, float posY);                           // construtor
     ~Player();                          // destrutor
 
     void OnCollision(Object * obj);     // resolução da colisão
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
+
+	uint Type() const { return type; } 
 };
 
 // ---------------------------------------------------------------------------------
 // Função Membro Inline
 
 inline void Player::Draw()
-{ anim->Draw(x, y, z); }
+{
+    sprite->Draw(x, y, z); 
+}
 
 // ---------------------------------------------------------------------------------
 
