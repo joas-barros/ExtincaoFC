@@ -34,12 +34,13 @@ void Grass::OnCollision(Object* obj)
         // Verifica se o jogador está efetivamente caindo (movimento para baixo)
         if (player->velY > 0.0f)
         {
-            // 1. Zera a velocidade vertical para interromper a queda
             player->velY = 0.0f;
+
+			player->onGround = true;
 
 			float overlap = 4;
 
-			player->MoveTo(player->X(), player->Y() - overlap);
+			player->MoveTo(player->X(), window->Height() - 220.0f);
         }
 
 	}

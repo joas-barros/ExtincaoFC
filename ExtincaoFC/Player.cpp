@@ -23,6 +23,8 @@ Player::Player(Dinasaur t, float posX, float posY)
 
 	score = 0;
 
+	onGround = true;
+
     switch (specie)
     {
     case TREX:
@@ -59,6 +61,50 @@ void Player::OnCollision(Object * obj)
 void Player::Update()
 {
     
+    float gravity = 1500.0f;
+    float moveSpeed = 400.0f;
+    float jumpForce = 800.0f;
+    float fastFallForce = 3000.0f;
+
+    velX = 0.0f; 
+
+    if (specie == TREX)
+    {
+        if (window->KeyDown('A')) velX = -moveSpeed;
+        if (window->KeyDown('D')) velX = moveSpeed;
+
+        
+        if (window->KeyPress('W') && onGround) {
+            velY = -jumpForce; 
+            onGround = false;  
+        }
+
+        
+        if (window->KeyDown('S') && !onGround) {
+            velY += fastFallForce * gameTime;
+        }
+    }
+    else if (specie == TRICERATOPS)
+    {
+        if (window->KeyDown(VK_LEFT)) velX = -moveSpeed;
+        if (window->KeyDown(VK_RIGHT)) velX = moveSpeed;
+
+        if (window->KeyPress(VK_UP) && onGround) {
+            velY = -jumpForce;
+            onGround = false;
+        }
+
+        if (window->KeyDown(VK_DOWN) && !onGround) {
+            velY += fastFallForce * gameTime;
+        }
+    }
+
+    
+    if (!onGround) {
+        velY += gravity * gameTime; 
+    }
+
+    Translate(velX * gameTime, velY * gameTime);
 }
 
 void Player::drawBBox(Dinasaur type)

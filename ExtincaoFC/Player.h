@@ -37,6 +37,7 @@ private:
 public:
     float velX;                   
     float velY;
+    bool onGround;
 
     Player(Dinasaur t, float posX, float posY);                           // construtor
     ~Player();                          // destrutor
