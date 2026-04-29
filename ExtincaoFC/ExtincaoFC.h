@@ -41,6 +41,8 @@ private:
 
 	Ball * ball = nullptr;
 
+    bool viewBBox = false;             // visualiza bounding box
+
 public:
     static Scene * scene;           // gerenciador de cena
 	static Audio * audio;           // gerenciador de áudio

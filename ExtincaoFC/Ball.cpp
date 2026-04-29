@@ -30,7 +30,7 @@ Ball::Ball()
 	speed = 0.0f;
 	state = STILL;
 	// cria bounding box
-	BBox(new Circle(40.0f));
+	BBox(new Circle(36.0f));
 
 	MoveTo(window->CenterX(), window->CenterY(), Layer::LOWER);
 }
