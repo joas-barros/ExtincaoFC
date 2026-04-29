@@ -32,6 +32,7 @@ private:
     Sprite* sprite;
 	Dinasaur type;
     uint score;
+	void drawBBox(Dinasaur type);
 
 public:
     Player(Dinasaur type, float posX, float posY);                           // construtor
