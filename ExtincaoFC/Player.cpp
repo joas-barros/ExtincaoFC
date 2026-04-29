@@ -10,18 +10,20 @@
 **********************************************************************************/
 
 #include "Player.h"
-#include "ExtincaoFC.h"                 // plataforma
+#include "ExtincaoFC.h"                 
 
 // ---------------------------------------------------------------------------------
 
-Player::Player(Dinasaur type, float posX, float posY)
+Player::Player(Dinasaur t, float posX, float posY)
 {
-    this->type = type;
+    this->specie = t;
     MoveTo(posX, posY, Layer::MIDDLE);
+
+	type = PLAYER;
 
 	score = 0;
 
-    switch (type)
+    switch (specie)
     {
     case TREX:
         sprite = new Sprite("Resources/trex.png");
@@ -31,7 +33,10 @@ Player::Player(Dinasaur type, float posX, float posY)
         break;
     }
 
-	drawBBox(type);
+	velX = 0.0f;
+	velY = 0.0f;
+
+	drawBBox(specie);
 
 }
 

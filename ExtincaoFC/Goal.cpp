@@ -1,4 +1,5 @@
 #include "Goal.h"
+#include "ExtincaoFC.h"
 
 Goal::Goal(Player* p, float posX, float posY)
 {
@@ -6,7 +7,7 @@ Goal::Goal(Player* p, float posX, float posY)
 
 	MoveTo(posX, posY, Layer::MIDDLE);
 
-	switch (player->Type())
+	switch (player->Specie())
 	{
 		case TREX:
 			sprite = new Sprite("Resources/goal_trex.png");
@@ -15,6 +16,8 @@ Goal::Goal(Player* p, float posX, float posY)
 			sprite = new Sprite("Resources/goal_triceratops.png");
 		break;
 	}
+
+	type = GOAL;
 }
 
 Goal::~Goal()

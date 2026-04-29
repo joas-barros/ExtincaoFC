@@ -20,6 +20,7 @@ public:
     Grass(float posX, float posY);
     ~Grass();
 
+    void OnCollision(Object* obj);
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
 };

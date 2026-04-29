@@ -30,19 +30,22 @@ class Player : public Object
 {
 private:
     Sprite* sprite;
-	Dinasaur type;
+	Dinasaur specie;
     uint score;
-	void drawBBox(Dinasaur type);
+	void drawBBox(Dinasaur specie);
 
 public:
-    Player(Dinasaur type, float posX, float posY);                           // construtor
+    float velX;                   
+    float velY;
+
+    Player(Dinasaur t, float posX, float posY);                           // construtor
     ~Player();                          // destrutor
 
     void OnCollision(Object * obj);     // resolução da colisão
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
 
-	uint Type() const { return type; } 
+	uint Specie() const { return specie; } 
 };
 
 // ---------------------------------------------------------------------------------

@@ -27,6 +27,14 @@
 
 enum { MUSIC, TRANSITION };
 
+enum ObjTypes
+{
+    PLAYER,                             
+    BALL,                               
+    GRASS,
+	GOAL,
+};
+
 // ------------------------------------------------------------------------------
 
 class ExtincaoFC : public Game

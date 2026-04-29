@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "ExtincaoFC.h"
 
 Ball::Ball()
 {
@@ -6,6 +7,7 @@ Ball::Ball()
 	moviment = new TileSet("Resources/BallMovement.png", 95, 95, 8, 64);
 	anim = new Animation(moviment, 0.1f, true);
 
+	type = BALL;
 	uint SeqDown[8] = { 0, 1, 2, 3, 4, 5, 6, 7 };
 	uint SeqLeft[8] = { 8, 9, 10, 11, 12, 13, 14, 15 };
 	uint SeqUp[8] = { 16, 17, 18, 19, 20, 21, 22, 23 };
@@ -32,7 +34,7 @@ Ball::Ball()
 	// cria bounding box
 	BBox(new Circle(36.0f));
 
-	MoveTo(window->CenterX(), window->CenterY(), Layer::LOWER);
+	MoveTo(window->CenterX(), window->CenterY() - 200.0f, Layer::LOWER);
 }
 
 Ball::~Ball()
