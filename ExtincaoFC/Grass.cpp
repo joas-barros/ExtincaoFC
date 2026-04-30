@@ -40,7 +40,7 @@ void Grass::OnCollision(Object* obj)
 
 			player->onGround = true;
 
-			player->MoveTo(player->X(), window->Height() - 220.0f);
+			player->MoveTo(player->X(), window->Height() - GRASS_HEIGHT);
         }
 
 	}
@@ -55,15 +55,13 @@ void Grass::OnCollision(Object* obj)
             // 1. Corrige a posição para ela não afundar no chão
             Circle* c = (Circle*)ball->BBox();
 
-            ball->MoveTo(ball->X(), window->Height() - 220.0f - c->radius);
+            ball->MoveTo(ball->X(), window->Height() - GRASS_HEIGHT - c->radius);
 
             // 2. Aplica o Quique (Restituição)
-            float restitution = 0.7f; // A grama amortece um pouco mais que a parede (0.8)
-            ball->velY = -ball->velY * restitution;
+            ball->velY = -ball->velY * GRASS_RESTITUTION;
 
             // 3. Aplica o Atrito (Friction) para ela parar de rolar aos poucos
-            float friction = 0.98f;
-            ball->velX = ball->velX * friction;
+            ball->velX = ball->velX * GRASS_FRICTION;
 
             // Para a bola não ficar quicando microscopicamente para sempre
             if (std::abs(ball->velY) < 40.0f) {

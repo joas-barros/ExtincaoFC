@@ -6,6 +6,11 @@
 #include "Animation.h"                  // animação de sprites
 #include "Player.h"
 
+// ---------------------------------------------------------------------------------
+
+#define BALL_GRAVITY 900.0f
+#define BALL_RESTITUTION 0.8f
+
 // ------------------------------------------------------------------------------
 
 enum BallState { STILL, GOINGUP, GOINGDOWN, GOINGLEFT, GOINGRIGHT, GOUPRIGHT, GOUPLEFT, GODOWNRIGHT, GODOWNLEFT };

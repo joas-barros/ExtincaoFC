@@ -19,6 +19,13 @@
 #include "Object.h"                     // interface de Object
 #include "Animation.h"                  // animação de sprites
 
+// ---------------------------------------------------------------------------------
+// Constantes aplicadas a física do jogador
+
+#define PLAYER_GRAVITY 1500.0f
+#define PLAYER_MOVE_SPEED 400.0f
+#define PLAYER_JUMP_FORCE 800.0f
+#define PLAYER_FAST_FALL_FORCE 3000.0f
 
 // ------------------------------------------------------------------------------
 

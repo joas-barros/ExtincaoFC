@@ -61,8 +61,7 @@ void Ball::Update()
 	}
 
 	// 2. APLICA GRAVIDADE E MOVIMENTO
-	float gravity = 900.0f;
-	velY += gravity * gameTime;
+	velY += BALL_GRAVITY * gameTime;
 	Translate(velX * gameTime, velY * gameTime);
 
 	// 3. RECUPERA OS LIMITES DO CÍRCULO PARA A COLISÃO COM A TELA
@@ -73,20 +72,19 @@ void Ball::Update()
 	float bottom = c->CenterY() + c->radius;
 
 	// 4. QUIQUES NAS PAREDES (Restituição)
-	float restitution = 0.8f; // Perde 20% da velocidade ao bater
 
 	if (left < 0.0f) {
 		Translate(-left, 0.0f); // Tira de dentro da parede
-		velX = -velX * restitution;
+		velX = -velX * BALL_RESTITUTION;
 	}
 	else if (right > window->Width()) {
 		Translate(window->Width() - right, 0.0f);
-		velX = -velX * restitution;
+		velX = -velX * BALL_RESTITUTION;
 	}
 
 	if (top < 0.0f) {
 		Translate(0.0f, -top);
-		velY = -velY * restitution; // Bate no teto e desce
+		velY = -velY * BALL_RESTITUTION; // Bate no teto e desce
 	}
 
 	// 5. ANIMAÇÃO (MÁQUINA DE ESTADOS)

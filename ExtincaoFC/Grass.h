@@ -9,6 +9,10 @@
 #include "Sprite.h"                     // background é composto por sprites
 #include "Grass.h"
 
+#define GRASS_HEIGHT 220.0f
+#define GRASS_RESTITUTION 0.7f
+#define GRASS_FRICTION 0.98f
+
 // ---------------------------------------------------------------------------------
 
 class Grass : public Object
