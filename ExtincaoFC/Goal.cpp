@@ -16,25 +16,7 @@ Goal::Goal(Player* p, float posX, float posY)
 		{
 			sprite = new Sprite("Resources/goal_trex.png");
 
-			
-			Circle* netCurve = new Circle(20.0f);
-			netCurve->MoveTo(95.0f, -120.0f);
-			mixedBBox->Insert(netCurve);
-
-			mixedBBox->Insert(new Rect(40.0f, -130.0f, 80.0f, -110.0f)); 
-
-			mixedBBox->Insert(new Rect(0.0f, -120.0f, 40.0f, -100.0f)); 
-			mixedBBox->Insert(new Rect(-30.0f, -100.0f, 0.0f, -90.0f)); 
-			mixedBBox->Insert(new Rect(-50.0f, -90.0f, -30.0f, -80.0f)); 
-			mixedBBox->Insert(new Rect(-60.0f, -80.0f, -50.0f, -65.0f)); 
-			mixedBBox->Insert(new Rect(-70.0f, -65.0f, -55.0f, -50.0f)); 
-
-			mixedBBox->Insert(new Rect(-90.0f, -50.0f, -70.0f, -30.0f)); 
-			mixedBBox->Insert(new Rect(-100.0f, -30.0f, -75.0f, 10.0f)); 
-			mixedBBox->Insert(new Rect(-110.0f, 10.0f, -80.0f, 40.0f)); 
-			mixedBBox->Insert(new Rect(-130.0f, 40.0f, -90.0f, 80.0f)); 
-			mixedBBox->Insert(new Rect(-130.0f, 80.0f, -100.0f, 120.0f)); 
-			mixedBBox->Insert(new Rect(-130.0f, 120.0f, -100.0f, 150.0f)); 
+			LoadBBoxFromFile("Resources/goal_trex_bbox.txt", mixedBBox);
 
 			break;
 		}
@@ -43,24 +25,7 @@ Goal::Goal(Player* p, float posX, float posY)
 		{
 			sprite = new Sprite("Resources/goal_triceratops.png");
 
-			Circle* netCurve = new Circle(20.0f);
-			netCurve->MoveTo(-95.0f, -120.0f);
-			mixedBBox->Insert(netCurve);
-
-			mixedBBox->Insert(new Rect(-40.0f, -130.0f, -80.0f, -110.0f));
-
-			mixedBBox->Insert(new Rect(0.0f, -120.0f, -40.0f, -100.0f));
-			mixedBBox->Insert(new Rect(30.0f, -100.0f, 0.0f, -90.0f));
-			mixedBBox->Insert(new Rect(50.0f, -90.0f, 30.0f, -80.0f));
-			mixedBBox->Insert(new Rect(60.0f, -80.0f, 50.0f, -65.0f));
-			mixedBBox->Insert(new Rect(70.0f, -65.0f, 55.0f, -50.0f));
-
-			mixedBBox->Insert(new Rect(90.0f, -50.0f, 70.0f, -30.0f));
-			mixedBBox->Insert(new Rect(100.0f, -30.0f, 75.0f, 10.0f));
-			mixedBBox->Insert(new Rect(110.0f, 10.0f, 80.0f, 40.0f));
-			mixedBBox->Insert(new Rect(130.0f, 40.0f, 90.0f, 80.0f));
-			mixedBBox->Insert(new Rect(130.0f, 80.0f, 100.0f, 120.0f));
-			mixedBBox->Insert(new Rect(130.0f, 120.0f, 100.0f, 150.0f));
+			LoadBBoxFromFile("Resources/goal_triceratops_bbox.txt", mixedBBox);
 			break;
 		}
 	}

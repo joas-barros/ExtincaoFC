@@ -179,10 +179,10 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="goal_trex_bbox.txt">
+    <Text Include="Resources\goal_trex_bbox.txt">
       <Filter>Game\Arquivos de Recurso</Filter>
     </Text>
-    <Text Include="goal_triceratops_bbox.txt">
+    <Text Include="Resources\goal_triceratops_bbox.txt">
       <Filter>Game\Arquivos de Recurso</Filter>
     </Text>
   </ItemGroup>
