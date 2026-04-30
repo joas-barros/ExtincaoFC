@@ -11,6 +11,10 @@
 #define BALL_GRAVITY 900.0f
 #define BALL_RESTITUTION 0.8f
 
+#define BALL_BASE_BOUNCE_FORCE 500.0f
+#define SPEED_TRANSFER_RATE_PLAYER_TO_BALL 0.70f
+#define BALL_MAX_SPEED 1400.0f
+
 // ------------------------------------------------------------------------------
 
 enum BallState { STILL, GOINGUP, GOINGDOWN, GOINGLEFT, GOINGRIGHT, GOUPRIGHT, GOUPLEFT, GODOWNRIGHT, GODOWNLEFT };

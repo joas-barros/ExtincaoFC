@@ -124,6 +124,48 @@ void Ball::OnCollision(Object* obj)
 	// Se a bola bateu em um jogador, atualizamos a referência
 	if (obj->Type() == PLAYER)
 	{
-		lastPlayer = (Player*)obj;
+		Player* p = (Player*)obj;
+
+		// Salva o último jogador a tocar na bola
+		lastPlayer = p;
+
+		// Encontra o "centro" do Player usando as extremidades da Bbox do Player
+		float pCenterX = p->Left() + (p->Right() - p->Left()) / 2.0f;
+		float pCenterY = p->Top() + (p->Bottom() - p->Top()) / 2.0f;
+
+		// Pega o centro da bola
+		Circle* c = (Circle*)this->BBox();
+		float bCenterX = c->CenterX();
+		float bCenterY = c->CenterY();
+
+		// Calcula a distância entre os centros nos eixos X e Y
+		float dx = bCenterX - pCenterX;
+		float dy = bCenterY - pCenterY;
+
+		// Normaliza o vetor (transforma a "seta" para ter tamanho 1)
+		float distance = sqrt(dx * dx + dy * dy);
+		if (distance == 0.0f) distance = 1.0f; // Previne divisão por zero
+
+		float dirX = dx / distance;
+		float dirY = dy / distance;
+
+		this->velX = dirX * BALL_BASE_BOUNCE_FORCE;
+		this->velY = dirY * BALL_BASE_BOUNCE_FORCE;
+
+		// Transfere parte da velocidade atual do jogador para a bola
+		this->velX += p->velX * SPEED_TRANSFER_RATE_PLAYER_TO_BALL;
+		this->velY += p->velY * SPEED_TRANSFER_RATE_PLAYER_TO_BALL;
+
+		// Trava a velocidade horizontal dentro do limite
+		if (this->velX > BALL_MAX_SPEED)  this->velX = BALL_MAX_SPEED;
+		if (this->velX < -BALL_MAX_SPEED) this->velX = -BALL_MAX_SPEED;
+
+		// Trava a velocidade vertical dentro do limite
+		if (this->velY > BALL_MAX_SPEED)  this->velY = BALL_MAX_SPEED;
+		if (this->velY < -BALL_MAX_SPEED) this->velY = -BALL_MAX_SPEED;
+
+		// Dá um micro-empurrãozinho na bola na direção que ela vai voar 
+		// para garantir que ela não bata 2x no mesmo jogador no próximo frame
+		this->Translate(dirX * 5.0f, dirY * 5.0f);
 	}
 }
