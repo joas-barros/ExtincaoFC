@@ -32,6 +32,10 @@ private:
     Sprite* sprite;
 	Dinasaur specie;
     uint score;
+
+	// Guarda os limites da bounding box para cada espécie, para facilitar a resolução de colisão
+    float bLeft, bRight, bTop, bBottom;
+
 	void drawBBox(Dinasaur specie);
 
 public:
@@ -47,6 +51,11 @@ public:
     void Draw();                        // desenho do objeto
 
 	uint Specie() const { return specie; } 
+
+    float Left() const { return x + bLeft; }
+    float Right() const { return x + bRight; }
+    float Top() const { return y + bTop; }
+    float Bottom() const { return y + bBottom; }
 };
 
 // ---------------------------------------------------------------------------------
