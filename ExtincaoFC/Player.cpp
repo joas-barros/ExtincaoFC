@@ -94,7 +94,7 @@ void Player::OnCollision(Object* obj)
             if (overlapTop < overlapBottom) {
                 this->Translate(0.0f, -overlapY);
                 this->velY = 0.0f;
-                this->onGround = true;
+                /*this->onGround = true;*/
             }
             else {
                 // Este jogador bateu a cabeça no que estava em cima
