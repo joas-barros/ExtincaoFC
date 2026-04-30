@@ -105,6 +105,12 @@ void Player::Update()
     }
 
     Translate(velX * gameTime, velY * gameTime);
+
+    // mantém personagem dentro da tela
+	if (x - sprite->Width() / 2 < 0) MoveTo(sprite->Width() / 2, y);
+
+	if (x + sprite->Width() / 2 > window->Width()) MoveTo(window->Width() - sprite->Width() / 2, y);
+
 }
 
 void Player::drawBBox(Dinasaur type)
