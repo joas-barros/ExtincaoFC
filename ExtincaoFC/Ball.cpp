@@ -1,5 +1,7 @@
 #include "Ball.h"
 #include "ExtincaoFC.h"
+#include <cmath>
+using namespace std;
 
 Ball::Ball()
 {
@@ -29,8 +31,11 @@ Ball::Ball()
 	anim->Add(GODOWNRIGHT, SeqDownRight, 8);
 	anim->Add(GODOWNLEFT, SeqDownLeft, 8);
 
-	speed = 0.0f;
+	velX = 0.0f;
+	velY = 0.0f;
 	state = STILL;
+	active = false; 
+
 	// cria bounding box
 	BBox(new Circle(36.0f));
 
@@ -45,6 +50,82 @@ Ball::~Ball()
 
 void Ball::Update()
 {
-	// lógica de atualização do objeto
+	if (!active)
+	{
+		if (window->KeyPress(VK_RETURN)) { 
+			active = true;
+		}
+		else {
+			return; 
+		}
+	}
+
+	// 2. APLICA GRAVIDADE E MOVIMENTO
+	float gravity = 900.0f;
+	velY += gravity * gameTime;
+	Translate(velX * gameTime, velY * gameTime);
+
+	// 3. RECUPERA OS LIMITES DO CÍRCULO PARA A COLISÃO COM A TELA
+	Circle* c = (Circle*)BBox();
+	float left = c->CenterX() - c->radius;
+	float right = c->CenterX() + c->radius;
+	float top = c->CenterY() - c->radius;
+	float bottom = c->CenterY() + c->radius;
+
+	// 4. QUIQUES NAS PAREDES (Restituição)
+	float restitution = 0.8f; // Perde 20% da velocidade ao bater
+
+	if (left < 0.0f) {
+		Translate(-left, 0.0f); // Tira de dentro da parede
+		velX = -velX * restitution;
+	}
+	else if (right > window->Width()) {
+		Translate(window->Width() - right, 0.0f);
+		velX = -velX * restitution;
+	}
+
+	if (top < 0.0f) {
+		Translate(0.0f, -top);
+		velY = -velY * restitution; // Bate no teto e desce
+	}
+
+	// 5. ANIMAÇÃO (MÁQUINA DE ESTADOS)
+	float threshold = 30.0f;
+
+	// Verifica se a bola está praticamente parada
+	if (abs(velX) < threshold && abs(velY) < threshold) {
+		state = STILL;
+	}
+	// Movimento puramente vertical
+	else if (abs(velX) < threshold) {
+		state = (velY < 0.0f) ? GOINGUP : GOINGDOWN;
+	}
+	// Movimento puramente horizontal
+	else if (abs(velY) < threshold) {
+		state = (velX < 0.0f) ? GOINGLEFT : GOINGRIGHT;
+	}
+	// Movimento nas diagonais
+	else {
+		if (velX > 0.0f && velY < 0.0f) state = GOUPRIGHT;
+		else if (velX < 0.0f && velY < 0.0f) state = GOUPLEFT;
+		else if (velX > 0.0f && velY > 0.0f) state = GODOWNRIGHT;
+		else if (velX < 0.0f && velY > 0.0f) state = GODOWNLEFT;
+	}
+
+	// 5. Atualiza a animação
 	anim->Select(state);
+
+	if (state != STILL) {
+		anim->NextFrame();
+	}
+}
+
+
+void Ball::OnCollision(Object* obj)
+{
+	// Se a bola bateu em um jogador, atualizamos a referência
+	if (obj->Type() == PLAYER)
+	{
+		lastPlayer = (Player*)obj;
+	}
 }

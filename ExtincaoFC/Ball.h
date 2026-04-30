@@ -17,18 +17,21 @@ class Ball : public Object
 private:
     TileSet* moviment;                // folha de sprites do personagem
     Animation* anim;                   // animação do personagem
-    float       speed;                  // velocidade do personagem
-	Player* player = nullptr;                  // jogador associado à bola
+    Player * lastPlayer;
 
 
 public:
     uint state;                         // estado atual do personagem
+    float velX;
+    float velY;
+    bool active;
 
     Ball();                             // construtor
     ~Ball();                            // destrutor
 
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
+    void OnCollision(Object* obj);
 };
 
 // ---------------------------------------------------------------------------------
