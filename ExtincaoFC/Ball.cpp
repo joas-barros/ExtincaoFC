@@ -39,7 +39,7 @@ Ball::Ball()
 	// cria bounding box
 	BBox(new Circle(36.0f));
 
-	MoveTo(window->CenterX(), window->CenterY() - 200.0f, Layer::LOWER);
+	MoveTo(window->CenterX(), window->CenterY() - 300.0f, Layer::LOWER);
 }
 
 Ball::~Ball()

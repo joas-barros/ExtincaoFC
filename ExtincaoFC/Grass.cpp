@@ -55,7 +55,12 @@ void Grass::OnCollision(Object* obj)
             // 1. Corrige a posição para ela não afundar no chão
             Circle* c = (Circle*)ball->BBox();
 
-            ball->MoveTo(ball->X(), window->Height() - GRASS_HEIGHT - c->radius);
+            Rect* grassRect = (Rect*)this->BBox(); 
+
+            float ballBottom = c->CenterY() + c->radius;
+            float overlap = ballBottom - grassRect->Top();
+
+            ball->Translate(0.0f, -overlap);
 
             // 2. Aplica o Quique (Restituição)
             ball->velY = -ball->velY * GRASS_RESTITUTION;
@@ -64,7 +69,7 @@ void Grass::OnCollision(Object* obj)
             ball->velX = ball->velX * GRASS_FRICTION;
 
             // Para a bola não ficar quicando microscopicamente para sempre
-            if (std::abs(ball->velY) < 40.0f) {
+            if (abs(ball->velY) < 40.0f) {
                 ball->velY = 0.0f; // Se a força for muito fraquinha, ela finalmente para de quicar
             }
         }
