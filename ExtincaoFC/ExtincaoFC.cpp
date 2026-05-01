@@ -64,6 +64,19 @@ void ExtincaoFC::Init()
     lastTotalScoreBoard = 0;
     waitingReset = false;
     resetTimer = 0.0f;
+
+	victimSpecie = -1; // nenhuma espécie é a vítima no início do jogo
+}
+
+// ------------------------------------------------------------------------------
+
+int ExtincaoFC::BallDirection()
+{
+    if (victimSpecie == TREX) return -1; 
+
+	if (victimSpecie == TRICERATOPS) return 1;
+
+	return 0; // direção neutra se nenhuma espécie é a vítima
 }
 
 // ------------------------------------------------------------------------------
@@ -72,7 +85,7 @@ void ExtincaoFC::ResetMatch()
 {
     player1->Reset();
     player2->Reset();
-    ball->Reset();
+    ball->Reset(BallDirection());
 
 	sensor1->Reset();
 	sensor2->Reset();
@@ -100,6 +113,18 @@ void ExtincaoFC::ManageMatchState()
     // Detectou um gol novo
     if (currentTotalScoreBoard > lastTotalScoreBoard)
     {
+		// Verifica qual jogador marcou o gol e define a espécie vítima
+        if (player1->Score() > lastTrexScore) {
+            victimSpecie = TRICERATOPS;
+        }
+        else {
+            victimSpecie = TREX;
+        }
+
+		// Salva o placar atual para comparação no próximo gol
+        lastTrexScore = player1->Score();
+        lastTriceratopsScore = player2->Score();
+
         lastTotalScoreBoard = currentTotalScoreBoard;
         waitingReset = true;
         resetTimer = 0.0f;

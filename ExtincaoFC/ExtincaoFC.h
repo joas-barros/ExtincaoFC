@@ -58,14 +58,21 @@ private:
 	Ball * ball = nullptr;
 
 	uint lastTotalScoreBoard;          // pontuação total do placar
+	uint lastTrexScore;               // pontuação do T-Rex no último placar
+	uint lastTriceratopsScore;         // pontuação do Triceratops no último placar
+
     bool waitingReset;
 	float resetTimer;
+
+	uint winner;                      // espécie vencedora do jogo
+    uint victimSpecie;
 
     bool viewBBox = false;             // visualiza bounding box
 
     void ResetMatch();
     void ProcessInputs();
     void ManageMatchState();
+    int BallDirection();
 
 public:
     static Scene * scene;           // gerenciador de cena

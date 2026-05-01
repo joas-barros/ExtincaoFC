@@ -47,7 +47,7 @@ public:
     void Draw();                        // desenho do objeto
     void OnCollision(Object* obj);
 
-	void Reset();      
+    void Reset(int dropDirection = 0);
 };
 
 // ---------------------------------------------------------------------------------

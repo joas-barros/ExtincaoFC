@@ -43,10 +43,10 @@ Ball::~Ball()
 	delete anim;
 }
 
-void Ball::Reset()
+void Ball::Reset(int dropDirection)
 {
 	MoveTo(window->CenterX(), window->CenterY() - 300.0f, Layer::LOWER);
-	velX = 0.0f;
+	velX = 300.0f * dropDirection;
 	velY = 0.0f;
 	state = STILL;
 	active = false; 
