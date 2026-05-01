@@ -168,4 +168,49 @@ void Ball::OnCollision(Object* obj)
 		// para garantir que ela não bata 2x no mesmo jogador no próximo frame
 		this->Translate(dirX * 5.0f, dirY * 5.0f);
 	}
+
+	if (obj->Type() == GOAL)
+	{
+		Circle* c = (Circle*)this->BBox();
+
+		// 1. BACKTRACKING: Tira a bola de dentro da geometria
+		this->Translate(-this->velX * gameTime, -this->velY * gameTime);
+
+		// 2. SEPARAÇÃO DO IMPACTO
+		// O teto do seu gol agora fica entre -150.0f e -130.0f. 
+		// Usamos uma margem de -110.0f para garantir que o centro da bola bateu por cima.
+		if (this->velY > 0.0f && c->CenterY() < obj->Y() - 110.0f)
+		{
+			// ==========================================
+			// COLISÃO SUPERIOR (TETO RETO)
+			// ==========================================
+
+			// Faz a bola dar um quique menor no teto
+			this->velY = -this->velY * 0.4f;
+
+			// Força de deslizamento para devolver a bola para o campo
+			float slideForce = 150.0f;
+
+			if (this->X() < window->CenterX()) {
+				// Gol esquerdo: Empurra a bola para a DIREITA
+				this->velX = slideForce;
+			}
+			else {
+				// Gol direito: Empurra a bola para a ESQUERDA
+				this->velX = -slideForce;
+			}
+		}
+		else
+		{
+			// ==========================================
+			// COLISÃO INTERNA (A REDE INCLINADA)
+			// ==========================================
+
+			// Amortecimento suave na rede, mantendo o efeito de tecido
+			float netDamping = 0.4f;
+
+			this->velX = -this->velX * netDamping;
+			this->velY = -this->velY * netDamping;
+		}
+	}
 }
