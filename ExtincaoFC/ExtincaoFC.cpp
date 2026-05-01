@@ -25,8 +25,8 @@ void ExtincaoFC::Init()
     // cria cena do jogo
     scene = new Scene();
 
-    consolas = new Font("Resources/consolas12.png");
-    consolas->Spacing("Resources/consolas12.dat");
+    calibri = new Font("Resources/calibri_12.png");
+    calibri->Spacing("Resources/calibri_12.dat");
 
     smallFonts = new Font("Resources/small_fonts_12.png");
     smallFonts->Spacing("Resources/small_fonts_12.dat");
@@ -231,18 +231,23 @@ void ExtincaoFC::Draw()
 	backg->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
     scene->Draw();
 
-	float timeLeft = MATCH_TIME_LIMIT - matchTimer;
-
-	Color textColor = timeLeft <= 10 ? Color{ 0.8, 0, 0, 1 } : Color{ 1, 1, 1, 1 }; // vermelho se faltar menos de 10 segundos, caso contrário branco
-
-	string timeString = GetMatchTimeString();
-
-	smallFonts->Draw(window->CenterX() + 10, 50.0f, timeString, textColor, Layer::FRONT, 3.0f);
+    DrawMatchTime();
 
     if (viewBBox)
     {
         scene->DrawBBox();
     }
+}
+
+void ExtincaoFC::DrawMatchTime()
+{
+    float timeLeft = MATCH_TIME_LIMIT - matchTimer;
+
+    Color textColor = timeLeft <= 10 ? Color{ 0.8, 0, 0, 1 } : Color{ 1, 1, 1, 1 }; // vermelho se faltar menos de 10 segundos, caso contrário branco
+
+    string timeString = GetMatchTimeString();
+
+    smallFonts->Draw(window->CenterX() + 10, 50.0f, timeString, textColor, Layer::FRONT, 3.0f);
 }
 
 string ExtincaoFC::GetMatchTimeString() const
@@ -281,7 +286,7 @@ void ExtincaoFC::Finalize()
 	delete sensor1;
 	delete sensor2;
 	delete ball;
-	delete consolas;
+	delete calibri;
 	delete smallFonts;
 }
 

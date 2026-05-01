@@ -53,7 +53,7 @@ private:
 	Player * player2 = nullptr;
     Sprite * backg = nullptr;
     Font* smallFonts = nullptr;
-    Font* consolas = nullptr;
+    Font* calibri = nullptr;
 
 	Goal * goal1 = nullptr;
 	Goal * goal2 = nullptr;
@@ -81,7 +81,9 @@ private:
     void ManageMatchState();
     int BallDirection();
 
+    // Metodos para tratar texto
 	string GetMatchTimeString() const;
+	void DrawMatchTime();
 
     bool TreatMatchEnding();
 
