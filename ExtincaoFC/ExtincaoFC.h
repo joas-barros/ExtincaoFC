@@ -74,6 +74,8 @@ private:
     void ManageMatchState();
     int BallDirection();
 
+    bool TreatMatchEnding();
+
 public:
     static Scene * scene;           // gerenciador de cena
 	static Audio * audio;           // gerenciador de áudio

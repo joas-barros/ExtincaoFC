@@ -138,9 +138,30 @@ void ExtincaoFC::ManageMatchState()
         if (resetTimer >= TIME_TO_RESET)
         {
             waitingReset = false;
-            ResetMatch();
+
+            if (!TreatMatchEnding()) {
+                ResetMatch();
+            }
         }
     }
+}
+
+// ------------------------------------------------------------------------------
+
+bool ExtincaoFC::TreatMatchEnding()
+{
+    if (lastTrexScore < SCORE_TO_WIN && lastTriceratopsScore < SCORE_TO_WIN) return false;
+
+    if (lastTrexScore >= SCORE_TO_WIN) {
+        winner = TREX;
+    }
+    else {
+        winner = TRICERATOPS;
+	}
+
+	// Aqui você pode adicionar lógica para exibir uma tela de vitória, tocar uma música de vitória, etc.
+    Finalize();
+    return true;
 }
 
 // ------------------------------------------------------------------------------
