@@ -46,6 +46,8 @@ public:
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
     void OnCollision(Object* obj);
+
+	void Reset();      
 };
 
 // ---------------------------------------------------------------------------------

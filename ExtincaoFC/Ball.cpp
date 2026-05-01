@@ -31,21 +31,25 @@ Ball::Ball()
 	anim->Add(GODOWNRIGHT, SeqDownRight, 8);
 	anim->Add(GODOWNLEFT, SeqDownLeft, 8);
 
-	velX = 0.0f;
-	velY = 0.0f;
-	state = STILL;
-	active = false; 
+	Reset();
 
 	// cria bounding box
 	BBox(new Circle(36.0f));
-
-	MoveTo(window->CenterX(), window->CenterY() - 300.0f, Layer::LOWER);
 }
 
 Ball::~Ball()
 {
 	delete moviment;
 	delete anim;
+}
+
+void Ball::Reset()
+{
+	MoveTo(window->CenterX(), window->CenterY() - 300.0f, Layer::LOWER);
+	velX = 0.0f;
+	velY = 0.0f;
+	state = STILL;
+	active = false; 
 }
 
 void Ball::Update()

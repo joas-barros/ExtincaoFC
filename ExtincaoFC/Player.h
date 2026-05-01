@@ -43,6 +43,8 @@ private:
 	// Guarda os limites da bounding box para cada espécie, para facilitar a resolução de colisão
     float bLeft, bRight, bTop, bBottom;
 
+	float initialPosX, initialPosY; // Guarda a posição inicial para o reset
+
 	void drawBBox(Dinasaur specie);
 
 public:
@@ -52,6 +54,8 @@ public:
 
     Player(Dinasaur t, float posX, float posY);                           // construtor
     ~Player();                          // destrutor
+
+    void Reset();
 
     void OnCollision(Object * obj);     // resolução da colisão
     void Update();                      // atualização do objeto

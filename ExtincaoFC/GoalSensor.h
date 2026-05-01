@@ -19,7 +19,7 @@ public:
     void Update();
     void Draw();
 
-    void ResetSensor() { hasScored = false; }
+    void Reset() { hasScored = false; }
 };
 
 inline void GoalSensor::Draw() {}

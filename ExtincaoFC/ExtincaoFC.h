@@ -24,6 +24,8 @@
 #include "Ball.h"
 #include "GoalSensor.h"
 
+#define SCORE_TO_WIN 5
+
 // ------------------------------------------------------------------------------
 
 enum { MUSIC, TRANSITION };
@@ -54,7 +56,11 @@ private:
 
 	Ball * ball = nullptr;
 
+	uint lastTotalScoreBoard;          // pontuação total do placar
+
     bool viewBBox = false;             // visualiza bounding box
+
+    void ResetMatch();
 
 public:
     static Scene * scene;           // gerenciador de cena

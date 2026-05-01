@@ -63,8 +63,29 @@ void ExtincaoFC::Init()
 
 // ------------------------------------------------------------------------------
 
+void ExtincaoFC::ResetMatch()
+{
+    player1->Reset();
+    player2->Reset();
+    ball->Reset();
+
+	sensor1->Reset();
+	sensor2->Reset();
+}
+
+// ------------------------------------------------------------------------------
+
 void ExtincaoFC::Update()
 {
+	uint currentTotalScoreBoard = player1->Score() + player2->Score();
+
+    if (currentTotalScoreBoard != lastTotalScoreBoard) {
+
+        ResetMatch();
+
+        lastTotalScoreBoard = currentTotalScoreBoard;
+    }
+
     // sai com o pressionar do ESC
     if (window->KeyDown(VK_ESCAPE))
         window->Close();

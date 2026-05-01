@@ -17,6 +17,9 @@
 Player::Player(Dinasaur t, float posX, float posY)
 {
     this->specie = t;
+	this->initialPosX = posX;
+	this->initialPosY = posY;
+
     MoveTo(posX, posY, Layer::MIDDLE);
 
 	type = PLAYER;
@@ -47,6 +50,15 @@ Player::Player(Dinasaur t, float posX, float posY)
 Player::~Player()
 {
 	delete sprite;
+}
+
+void Player::Reset()
+{
+    MoveTo(initialPosX, initialPosY);
+
+    velX = 0.0f;
+    velY = 0.0f;
+    onGround = true;
 }
 
 // ---------------------------------------------------------------------------------
