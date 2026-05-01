@@ -25,8 +25,16 @@ void ExtincaoFC::Init()
     // cria cena do jogo
     scene = new Scene();
 
+    consolas = new Font("Resources/consolas12.png");
+    consolas->Spacing("Resources/consolas12.dat");
+
+    smallFonts = new Font("Resources/small_fonts_12.png");
+    smallFonts->Spacing("Resources/small_fonts_12.dat");
+
 	// cria sistema de áudio
 	audio = new Audio();
+
+    
 
     // pano de fundo do jogo
     backg = new Sprite("Resources/background.png");
@@ -223,11 +231,41 @@ void ExtincaoFC::Draw()
 	backg->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
     scene->Draw();
 
+	float timeLeft = MATCH_TIME_LIMIT - matchTimer;
+
+	Color textColor = timeLeft <= 10 ? Color{ 0.8, 0, 0, 1 } : Color{ 1, 1, 1, 1 }; // vermelho se faltar menos de 10 segundos, caso contrário branco
+
+	string timeString = GetMatchTimeString();
+
+	smallFonts->Draw(window->CenterX() + 10, 50.0f, timeString, textColor, Layer::FRONT, 3.0f);
+
     if (viewBBox)
     {
         scene->DrawBBox();
     }
-} 
+}
+
+string ExtincaoFC::GetMatchTimeString() const
+{
+    // 1. Calcula os segundos restantes (e impede de ficar negativo)
+    int timeLeft = (int)(MATCH_TIME_LIMIT - matchTimer);
+    if (timeLeft < 0) timeLeft = 0;
+
+    // 2. Extrai os minutos e segundos da matemática básica
+    int minutes = timeLeft / 60;
+    int seconds = timeLeft % 60;
+
+    // 3. Monta a string do texto (ex: "1:05" ou "0:09")
+    std::string timeString = std::to_string(minutes) + ":";
+
+    // Se os segundos forem menores que 10, coloca um '0' na frente para não ficar "0:9"
+    if (seconds < 10) {
+        timeString += "0";
+    }
+    timeString += to_string(seconds);
+
+    return timeString;
+}
 
 // ------------------------------------------------------------------------------
 
@@ -243,6 +281,8 @@ void ExtincaoFC::Finalize()
 	delete sensor1;
 	delete sensor2;
 	delete ball;
+	delete consolas;
+	delete smallFonts;
 }
 
 

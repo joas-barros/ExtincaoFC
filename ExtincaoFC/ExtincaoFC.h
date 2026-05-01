@@ -18,11 +18,14 @@
 #include "Game.h"
 #include "Scene.h"
 #include "Audio.h"
+#include "Font.h"
 #include "Player.h"
 #include "Grass.h"
 #include "Goal.h"
 #include "Ball.h"
 #include "GoalSensor.h"
+#include <string>
+using namespace std;
 
 #define SCORE_TO_WIN 5
 #define TIME_TO_RESET 1.0f
@@ -49,6 +52,8 @@ private:
     Player * player1 = nullptr; 
 	Player * player2 = nullptr;
     Sprite * backg = nullptr;
+    Font* smallFonts = nullptr;
+    Font* consolas = nullptr;
 
 	Goal * goal1 = nullptr;
 	Goal * goal2 = nullptr;
@@ -75,6 +80,8 @@ private:
     void ProcessInputs();
     void ManageMatchState();
     int BallDirection();
+
+	string GetMatchTimeString() const;
 
     bool TreatMatchEnding();
 
