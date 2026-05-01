@@ -1,5 +1,6 @@
 #include "GoalSensor.h"
 #include "ExtincaoFC.h"
+#include "Ball.h"
 
 GoalSensor::GoalSensor(Goal* g)
 {
@@ -37,8 +38,41 @@ void GoalSensor::OnCollision(Object* obj)
     {
         if (!hasScored)
         {
-            targetGoal->GetScorer()->IncreaseScore();
-            hasScored = true;
+            Ball* ball = (Ball*)obj;
+            Circle* c = (Circle*)ball->BBox();
+			Rect* sensorRect = (Rect*)this->BBox();
+
+            // Bordas reais da bola
+            float ballLeft = ball->X() - c->radius;
+            float ballRight = ball->X() + c->radius;
+
+            // Calcula a metade exata do retângulo do Sensor
+            float sensorMiddle = (sensorRect->Left() + sensorRect->Right()) / 2.0f;
+
+            bool completelyPassed = false;
+
+            if (this->X() > window->CenterX())
+            {
+                // Verifica se a traseira da bola passou da metade do sensor
+                if (ballLeft > sensorMiddle)
+                {
+                    completelyPassed = true;
+                }
+            }
+            else
+            {
+                // Verifica se a traseira da bola passou da metade do sensor
+                if (ballRight < sensorMiddle)
+                {
+                    completelyPassed = true;
+                }
+            }
+
+            if (completelyPassed)
+            {
+                targetGoal->GetScorer()->IncreaseScore();
+                hasScored = true;
+            }
         }
     }
 }
