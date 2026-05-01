@@ -82,38 +82,48 @@ void ExtincaoFC::ResetMatch()
 
 void ExtincaoFC::Update()
 {
-	uint currentTotalScoreBoard = player1->Score() + player2->Score();
-
-    if (currentTotalScoreBoard != lastTotalScoreBoard) {
-
-        lastTotalScoreBoard = currentTotalScoreBoard;
-
-		waitingReset = true;
-		resetTimer = 0.0f;
+    // ==========================================
+    // 1. PROCESSAMENTO DE INPUTS (Controles de Sistema)
+    // ==========================================
+    if (window->KeyDown(VK_ESCAPE)) {
+        window->Close();
     }
 
-	if (waitingReset) {
+    if (window->KeyPress('B')) {
+        viewBBox = !viewBBox;
+    }
+
+    // ==========================================
+    // 2. REGRAS DA PARTIDA (Gols e Reset)
+    // ==========================================
+    uint currentTotalScoreBoard = player1->Score() + player2->Score();
+
+    // Detectou um gol novo
+    if (currentTotalScoreBoard > lastTotalScoreBoard)
+    {
+        lastTotalScoreBoard = currentTotalScoreBoard;
+        waitingReset = true;
+        resetTimer = 0.0f;
+    }
+
+    // Cronômetro de comemoração
+    if (waitingReset)
+    {
         resetTimer += gameTime;
-        if (resetTimer >= 1.0f) {
+
+        if (resetTimer >= TIME_TO_RESET)
+        {
             waitingReset = false;
             ResetMatch();
         }
     }
 
-    // sai com o pressionar do ESC
-    if (window->KeyDown(VK_ESCAPE))
-        window->Close();
-
-    if (window->KeyPress('B'))
-        viewBBox = !viewBBox;
-
-    // ----------------------------------
-    // atualiza a posição dos objetos
-    // ----------------------------------
-
+    // ==========================================
+    // 3. ATUALIZAÇÃO DA ENGINE
+    // ==========================================
     scene->Update();
     scene->CollisionDetection();
-} 
+}
 
 // ------------------------------------------------------------------------------
 

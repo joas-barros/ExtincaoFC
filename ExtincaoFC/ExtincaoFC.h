@@ -25,6 +25,7 @@
 #include "GoalSensor.h"
 
 #define SCORE_TO_WIN 5
+#define TIME_TO_RESET 1.0f
 
 // ------------------------------------------------------------------------------
 
