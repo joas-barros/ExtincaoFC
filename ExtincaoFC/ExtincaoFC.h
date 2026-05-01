@@ -22,6 +22,7 @@
 #include "Grass.h"
 #include "Goal.h"
 #include "Ball.h"
+#include "GoalSensor.h"
 
 // ------------------------------------------------------------------------------
 
@@ -33,6 +34,7 @@ enum ObjTypes
     BALL,                               
     GRASS,
 	GOAL,
+	SENSOR
 };
 
 // ------------------------------------------------------------------------------
@@ -46,6 +48,9 @@ private:
 
 	Goal * goal1 = nullptr;
 	Goal * goal2 = nullptr;
+
+	GoalSensor * sensor1 = nullptr;
+	GoalSensor * sensor2 = nullptr;
 
 	Ball * ball = nullptr;
 

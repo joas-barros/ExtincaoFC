@@ -173,6 +173,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="GoalSensor.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="Goal.h" />
+    <ClInclude Include="GoalSensor.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Image.h" />

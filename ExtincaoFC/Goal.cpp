@@ -5,6 +5,7 @@
 Goal::Goal(Player* p, float posX, float posY)
 {
 	scorer = p;
+	sensorBBox = nullptr;
 
 	MoveTo(posX, posY, Layer::UPPER);
 
@@ -61,6 +62,13 @@ void Goal::LoadBBoxFromFile(string filename, Mixed* mixedBBox)
 
 			mixedBBox->Insert(new Rect(l, t, r, b));
 		}
+		else if (shape == "SENSOR")
+		{
+			float l, t, r, b;
+			file >> l >> t >> r >> b;
+
+			sensorBBox = new Rect(l, t, r, b);
+		}
 	}
 
 	file.close(); 
@@ -69,6 +77,11 @@ void Goal::LoadBBoxFromFile(string filename, Mixed* mixedBBox)
 Goal::~Goal()
 {
 	delete sprite;
+
+	if (sensorBBox != nullptr)
+	{
+		delete sensorBBox;
+	}
 }
 
 void Goal::OnCollision(Object* obj)

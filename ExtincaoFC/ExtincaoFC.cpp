@@ -49,6 +49,13 @@ void ExtincaoFC::Init()
 	goal2 = new Goal(player1, window->Width() - 130.0f, window->Height() - 320.0f);
 	scene->Add(goal2, STATIC);
 
+	// cria sensores de gol
+	sensor1 = new GoalSensor(goal1);
+	scene->Add(sensor1, STATIC);
+
+	sensor2 = new GoalSensor(goal2);
+	scene->Add(sensor2, STATIC);
+
 	// cria bola
 	ball = new Ball();
 	scene->Add(ball, MOVING);
@@ -97,6 +104,8 @@ void ExtincaoFC::Finalize()
 	delete player2;
 	delete goal1;
 	delete goal2;
+	delete sensor1;
+	delete sensor2;
 	delete ball;
 }
 
