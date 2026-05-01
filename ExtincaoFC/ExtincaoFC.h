@@ -57,6 +57,8 @@ private:
 	Ball * ball = nullptr;
 
 	uint lastTotalScoreBoard;          // pontuação total do placar
+    bool waitingReset;
+	float resetTimer;
 
     bool viewBBox = false;             // visualiza bounding box
 

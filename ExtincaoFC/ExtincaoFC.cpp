@@ -59,6 +59,11 @@ void ExtincaoFC::Init()
 	// cria bola
 	ball = new Ball();
 	scene->Add(ball, MOVING);
+
+	// inicializa variáveis de controle do gol e reset
+    lastTotalScoreBoard = 0;
+    waitingReset = false;
+    resetTimer = 0.0f;
 }
 
 // ------------------------------------------------------------------------------
@@ -81,9 +86,18 @@ void ExtincaoFC::Update()
 
     if (currentTotalScoreBoard != lastTotalScoreBoard) {
 
-        ResetMatch();
-
         lastTotalScoreBoard = currentTotalScoreBoard;
+
+		waitingReset = true;
+		resetTimer = 0.0f;
+    }
+
+	if (waitingReset) {
+        resetTimer += gameTime;
+        if (resetTimer >= 1.0f) {
+            waitingReset = false;
+            ResetMatch();
+        }
     }
 
     // sai com o pressionar do ESC
