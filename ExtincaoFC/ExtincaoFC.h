@@ -84,6 +84,7 @@ private:
     // Metodos para tratar texto
 	string GetMatchTimeString() const;
 	void DrawMatchTime();
+	void DrawSscoreBoard();
 
     bool TreatMatchEnding();
 

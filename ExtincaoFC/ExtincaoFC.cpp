@@ -232,6 +232,7 @@ void ExtincaoFC::Draw()
     scene->Draw();
 
     DrawMatchTime();
+    DrawSscoreBoard();
 
     if (viewBBox)
     {
@@ -248,6 +249,21 @@ void ExtincaoFC::DrawMatchTime()
     string timeString = GetMatchTimeString();
 
     smallFonts->Draw(window->CenterX() + 10, 50.0f, timeString, textColor, Layer::FRONT, 3.0f);
+}
+
+void ExtincaoFC::DrawSscoreBoard()
+{
+	Color playerColor = { 0, 1, 0, 1 };
+
+	Color scoreColor = { 1, 1, 1, 1 };
+
+	// Desenha o nome dos jogadores
+	smallFonts->Draw(60.0f, 50.0f, "T-REX", playerColor, Layer::FRONT, 3.0f);
+	smallFonts->Draw(window->Width() - 300.0f, 50.0f, "TRICERATOPS", playerColor, Layer::FRONT, 3.0f);
+
+	// Desenha os gols de cada jogador
+	smallFonts->Draw(80.0f, 125.0f, to_string(player1->Score()), scoreColor, Layer::FRONT, 4.0f);
+	smallFonts->Draw(window->Width(), 125.0f, to_string(player2->Score()), scoreColor, Layer::FRONT, 4.0f);
 }
 
 string ExtincaoFC::GetMatchTimeString() const
