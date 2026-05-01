@@ -77,17 +77,41 @@ void Goal::OnCollision(Object* obj)
 	{
 		Player* player = (Player*)obj;
 
+		// 1. Desfaz o movimento horizontal
+		// Se o jogador tentou entrar na malha da rede, ele é empurrado de volta 
+		// a exata quantidade de pixels que ele andou neste frame.
 		if (player->velX != 0.0f)
 		{
 			player->Translate(-player->velX * gameTime, 0.0f);
 		}
 
 
-
+		// 2. Tratamento do Teto do Gol (Batendo a cabeça)
+		// Se ele pulou contra o teto da rede, interrompemos a subida
 		if (player->velY < 0.0f)
 		{
 			player->Translate(0.0f, -player->velY * gameTime); 
 			player->velY = 0.0f;                             
+		}
+	}
+
+	if (obj->Type() == BALL)
+	{
+		// Implementar lógica de colisão com a bola aqui
+		Ball * ball = (Ball*)obj;
+
+		// 1. BACKTRACKING: Tira a bola de dentro da malha do gol desfazendo o movimento atual
+		ball->Translate(-ball->velX * gameTime, -ball->velY * gameTime);
+
+		// Inverte a direção da bola, mas com a força drasticamente reduzida
+		ball->velX = -ball->velX * NET_DAMPING;
+		ball->velY = -ball->velY * NET_DAMPING;
+
+		// 3. EFEITO "BOLA MORTA"
+		// Se o chute foi fraco e a bola bateu na rede, zeramos a inércia horizontal
+		// para que ela pare de quicar para os lados e simplesmente caia reta no chão do gol.
+		if (abs(ball->velX) < 100.0f) {
+			ball->velX = 0.0f;
 		}
 	}
 }
