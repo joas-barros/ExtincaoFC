@@ -73,7 +73,23 @@ Goal::~Goal()
 
 void Goal::OnCollision(Object* obj)
 {
-	// Implement collision logic here
+	if (obj->Type() == PLAYER)
+	{
+		Player* player = (Player*)obj;
+
+		if (player->velX != 0.0f)
+		{
+			player->Translate(-player->velX * gameTime, 0.0f);
+		}
+
+
+
+		if (player->velY < 0.0f)
+		{
+			player->Translate(0.0f, -player->velY * gameTime); 
+			player->velY = 0.0f;                             
+		}
+	}
 }
 
 void Goal::Update()
