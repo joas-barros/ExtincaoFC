@@ -58,6 +58,8 @@ public:
     void Draw();                        // desenho do objeto
 
 	uint Specie() const { return specie; } 
+	uint Score() const { return score; }
+	void IncreaseScore() { score++; }
 
     float Left() const { return x + bLeft; }
     float Right() const { return x + bRight; }

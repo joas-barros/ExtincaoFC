@@ -4,15 +4,15 @@
 
 Goal::Goal(Player* p, float posX, float posY)
 {
-	player = p;
+	scorer = p;
 
 	MoveTo(posX, posY, Layer::UPPER);
 
 	Mixed* mixedBBox = new Mixed();
 
-	switch (player->Specie())
+	switch (scorer->Specie())
 	{
-		case TREX:
+		case TRICERATOPS:
 		{
 			sprite = new Sprite("Resources/goal_trex.png");
 
@@ -21,7 +21,7 @@ Goal::Goal(Player* p, float posX, float posY)
 			break;
 		}
 			
-		case TRICERATOPS:
+		case TREX:
 		{
 			sprite = new Sprite("Resources/goal_triceratops.png");
 

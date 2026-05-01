@@ -12,7 +12,7 @@ class Goal : public Object
 {
 private:
 	Sprite* sprite;                  // sprite da plataforma
-	Player* player;                  // jogador associado à meta
+	Player* scorer;                  // jogador associado à meta
 
 	void LoadBBoxFromFile(string filename, Mixed* mixedBBox);
 
