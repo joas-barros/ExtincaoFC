@@ -26,6 +26,7 @@
 
 #define SCORE_TO_WIN 5
 #define TIME_TO_RESET 1.0f
+#define MATCH_TIME_LIMIT 60.0f
 
 // ------------------------------------------------------------------------------
 
@@ -63,6 +64,7 @@ private:
 
     bool waitingReset;
 	float resetTimer;
+    float matchTimer;
 
 	uint winner;                      // espécie vencedora do jogo
     uint victimSpecie;

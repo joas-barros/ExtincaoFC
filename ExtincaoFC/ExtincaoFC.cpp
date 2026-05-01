@@ -108,6 +108,20 @@ void ExtincaoFC::ProcessInputs()
 
 void ExtincaoFC::ManageMatchState()
 {
+    // 1. O RELÓGIO DA PARTIDA
+    // Só contabiliza o tempo se a bola estiver rolando (não estamos comemorando gol)
+    if (!waitingReset)
+    {
+        matchTimer += gameTime;
+
+        // Se o tempo estourou no meio da jogada, o juiz apita o fim imediatamente!
+        if (matchTimer >= MATCH_TIME_LIMIT)
+        {
+            TreatMatchEnding();
+            return; // Sai da função para congelar o jogo
+        }
+    }
+
     uint currentTotalScoreBoard = player1->Score() + player2->Score();
 
     // Detectou um gol novo
@@ -150,18 +164,45 @@ void ExtincaoFC::ManageMatchState()
 
 bool ExtincaoFC::TreatMatchEnding()
 {
-    if (lastTrexScore < SCORE_TO_WIN && lastTriceratopsScore < SCORE_TO_WIN) return false;
-
+    // ==========================================
+    // CONDIÇÃO 1: LIMITE DE GOLS ATINGIDO
+    // ==========================================
     if (lastTrexScore >= SCORE_TO_WIN) {
-        winner = TREX;
+        winner = TREX; 
+        Finalize();
+        return true;
     }
-    else {
-        winner = TRICERATOPS;
-	}
 
-	// Aqui você pode adicionar lógica para exibir uma tela de vitória, tocar uma música de vitória, etc.
-    Finalize();
-    return true;
+    if (lastTriceratopsScore >= SCORE_TO_WIN) {
+        winner = TRICERATOPS;
+        Finalize();
+        return true;
+    }
+
+    // ==========================================
+    // CONDIÇÃO 2: TEMPO ESGOTADO
+    // ==========================================
+    if (matchTimer >= MATCH_TIME_LIMIT)
+    {
+        // Descobre quem tem mais gols
+        if (lastTrexScore > lastTriceratopsScore) {
+            winner = TREX;
+        }
+        else if (lastTriceratopsScore > lastTrexScore) {
+            winner = TRICERATOPS;
+        }
+        else {
+            // EMPATE! 
+            // Garanta que 'winner' fique nulo ou crie um estado específico para isso
+            winner = 99;
+        }
+
+        Finalize();
+        return true;
+    }
+
+    // Se não atingiu o limite de gols e o tempo não acabou, o jogo segue!
+    return false;
 }
 
 // ------------------------------------------------------------------------------
