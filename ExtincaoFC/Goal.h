@@ -5,12 +5,16 @@
 #include "Object.h"                     // interface de Object
 #include "Sprite.h"
 #include "Player.h"
+#include <string>
+using namespace std;
 
 class Goal : public Object
 {
 private:
 	Sprite* sprite;                  // sprite da plataforma
 	Player* player;                  // jogador associado à meta
+
+	void LoadBBoxFromFile(string filename, Mixed* mixedBBox);
 
 public:
 	Goal(Player* p, float posX, float posY);

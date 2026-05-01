@@ -27,6 +27,14 @@
 
 enum { MUSIC, TRANSITION };
 
+enum ObjTypes
+{
+    PLAYER,                             
+    BALL,                               
+    GRASS,
+	GOAL,
+};
+
 // ------------------------------------------------------------------------------
 
 class ExtincaoFC : public Game
@@ -40,6 +48,8 @@ private:
 	Goal * goal2 = nullptr;
 
 	Ball * ball = nullptr;
+
+    bool viewBBox = false;             // visualiza bounding box
 
 public:
     static Scene * scene;           // gerenciador de cena

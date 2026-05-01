@@ -178,4 +178,12 @@
       <Filter>Game\Arquivos de Recurso</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\goal_trex_bbox.txt">
+      <Filter>Game\Arquivos de Recurso</Filter>
+    </Text>
+    <Text Include="Resources\goal_triceratops_bbox.txt">
+      <Filter>Game\Arquivos de Recurso</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

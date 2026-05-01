@@ -19,6 +19,13 @@
 #include "Object.h"                     // interface de Object
 #include "Animation.h"                  // animação de sprites
 
+// ---------------------------------------------------------------------------------
+// Constantes aplicadas a física do jogador
+
+#define PLAYER_GRAVITY 1500.0f
+#define PLAYER_MOVE_SPEED 400.0f
+#define PLAYER_JUMP_FORCE 800.0f
+#define PLAYER_FAST_FALL_FORCE 3000.0f
 
 // ------------------------------------------------------------------------------
 
@@ -30,18 +37,32 @@ class Player : public Object
 {
 private:
     Sprite* sprite;
-	Dinasaur type;
+	Dinasaur specie;
     uint score;
 
+	// Guarda os limites da bounding box para cada espécie, para facilitar a resolução de colisão
+    float bLeft, bRight, bTop, bBottom;
+
+	void drawBBox(Dinasaur specie);
+
 public:
-    Player(Dinasaur type, float posX, float posY);                           // construtor
+    float velX;                   
+    float velY;
+    bool onGround;
+
+    Player(Dinasaur t, float posX, float posY);                           // construtor
     ~Player();                          // destrutor
 
     void OnCollision(Object * obj);     // resolução da colisão
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
 
-	uint Type() const { return type; } 
+	uint Specie() const { return specie; } 
+
+    float Left() const { return x + bLeft; }
+    float Right() const { return x + bRight; }
+    float Top() const { return y + bTop; }
+    float Bottom() const { return y + bBottom; }
 };
 
 // ---------------------------------------------------------------------------------

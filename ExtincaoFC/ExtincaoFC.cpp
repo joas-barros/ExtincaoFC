@@ -43,10 +43,10 @@ void ExtincaoFC::Init()
 	scene->Add(player2, MOVING);
 
 	// cria metas
-	goal1 = new Goal(player1, 130.0f, window->Height() - 300.0f);
+	goal1 = new Goal(player1, 130.0f, window->Height() - 320.0f);
 	scene->Add(goal1, STATIC);
 
-	goal2 = new Goal(player2, window->Width() - 130.0f, window->Height() - 300.0f);
+	goal2 = new Goal(player2, window->Width() - 130.0f, window->Height() - 320.0f);
 	scene->Add(goal2, STATIC);
 
 	// cria bola
@@ -62,6 +62,9 @@ void ExtincaoFC::Update()
     if (window->KeyDown(VK_ESCAPE))
         window->Close();
 
+    if (window->KeyPress('B'))
+        viewBBox = !viewBBox;
+
     // ----------------------------------
     // atualiza a posição dos objetos
     // ----------------------------------
@@ -76,6 +79,11 @@ void ExtincaoFC::Draw()
 {
 	backg->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
     scene->Draw();
+
+    if (viewBBox)
+    {
+        scene->DrawBBox();
+    }
 } 
 
 // ------------------------------------------------------------------------------
@@ -89,6 +97,7 @@ void ExtincaoFC::Finalize()
 	delete player2;
 	delete goal1;
 	delete goal2;
+	delete ball;
 }
 
 

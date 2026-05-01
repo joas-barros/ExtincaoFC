@@ -6,6 +6,20 @@
 #include "Animation.h"                  // animação de sprites
 #include "Player.h"
 
+// ---------------------------------------------------------------------------------
+
+#define BALL_GRAVITY 900.0f
+#define BALL_RESTITUTION 0.8f
+
+#define BALL_BASE_BOUNCE_FORCE 500.0f
+#define SPEED_TRANSFER_RATE_PLAYER_TO_BALL 0.70f
+#define BALL_MAX_SPEED 1400.0f
+
+// constantes de colição com o gol
+#define BALL_GOAL_ACCELERATION 200.0f
+#define BALL_GOAL_MAX_SLIDE_SPEED 200.0f
+#define NET_DAMPING 0.4f
+
 // ------------------------------------------------------------------------------
 
 enum BallState { STILL, GOINGUP, GOINGDOWN, GOINGLEFT, GOINGRIGHT, GOUPRIGHT, GOUPLEFT, GODOWNRIGHT, GODOWNLEFT };
@@ -17,18 +31,21 @@ class Ball : public Object
 private:
     TileSet* moviment;                // folha de sprites do personagem
     Animation* anim;                   // animação do personagem
-    float       speed;                  // velocidade do personagem
-	Player* player = nullptr;                  // jogador associado à bola
+    Player * lastPlayer;
 
 
 public:
     uint state;                         // estado atual do personagem
+    float velX;
+    float velY;
+    bool active;
 
     Ball();                             // construtor
     ~Ball();                            // destrutor
 
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
+    void OnCollision(Object* obj);
 };
 
 // ---------------------------------------------------------------------------------
