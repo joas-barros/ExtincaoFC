@@ -8,8 +8,6 @@
 #include <string>
 using namespace std;
 
-#define NET_DAMPING 0.3f
-
 class Goal : public Object
 {
 private:

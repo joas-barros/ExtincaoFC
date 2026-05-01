@@ -15,6 +15,11 @@
 #define SPEED_TRANSFER_RATE_PLAYER_TO_BALL 0.70f
 #define BALL_MAX_SPEED 1400.0f
 
+// constantes de colição com o gol
+#define BALL_GOAL_ACCELERATION 200.0f
+#define BALL_GOAL_MAX_SLIDE_SPEED 200.0f
+#define NET_DAMPING 0.4f
+
 // ------------------------------------------------------------------------------
 
 enum BallState { STILL, GOINGUP, GOINGDOWN, GOINGLEFT, GOINGRIGHT, GOUPRIGHT, GOUPLEFT, GODOWNRIGHT, GODOWNLEFT };

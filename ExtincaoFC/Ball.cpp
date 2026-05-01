@@ -173,8 +173,7 @@ void Ball::OnCollision(Object* obj)
 	{
 		Circle* c = (Circle*)this->BBox();
 
-		// 1. BACKTRACKING: Tira a bola de dentro da geometria
-		this->Translate(-this->velX * gameTime, -this->velY * gameTime);
+		
 
 		// 2. SEPARAÇÃO DO IMPACTO
 		// O teto do seu gol agora fica entre -150.0f e -130.0f. 
@@ -182,22 +181,22 @@ void Ball::OnCollision(Object* obj)
 		if (this->velY > 0.0f && c->CenterY() < obj->Y() - 110.0f)
 		{
 			// ==========================================
-			// COLISÃO SUPERIOR (TETO RETO)
+			// COLISÃO SUPERIOR 
 			// ==========================================
 
-			// Faz a bola dar um quique menor no teto
-			this->velY = -this->velY * 0.4f;
+			// 1. BACKTRACKING: Tira a bola de dentro da geometria
+			this->Translate(0.0f, -this->velY * gameTime);
 
-			// Força de deslizamento para devolver a bola para o campo
-			float slideForce = 150.0f;
+			// Faz a bola dar um quique menor no teto
+			this->velY = -this->velY * NET_DAMPING;
 
 			if (this->X() < window->CenterX()) {
-				// Gol esquerdo: Empurra a bola para a DIREITA
-				this->velX = slideForce;
+				// Se está na esquerda, acelera suavemente para a direita
+				if (this->velX < BALL_GOAL_MAX_SLIDE_SPEED) this->velX += BALL_GOAL_ACCELERATION * gameTime;
 			}
 			else {
-				// Gol direito: Empurra a bola para a ESQUERDA
-				this->velX = -slideForce;
+				// Se está na direita, acelera suavemente para a esquerda
+				if (this->velX > -BALL_GOAL_MAX_SLIDE_SPEED) this->velX -= BALL_GOAL_ACCELERATION * gameTime;
 			}
 		}
 		else
@@ -206,11 +205,11 @@ void Ball::OnCollision(Object* obj)
 			// COLISÃO INTERNA (A REDE INCLINADA)
 			// ==========================================
 
-			// Amortecimento suave na rede, mantendo o efeito de tecido
-			float netDamping = 0.4f;
+			// 1. Backtrack TOTAL (X e Y) porque ela trombou na rede e não deve atravessar
+			this->Translate(-this->velX * gameTime, -this->velY * gameTime);
 
-			this->velX = -this->velX * netDamping;
-			this->velY = -this->velY * netDamping;
+			this->velX = -this->velX * NET_DAMPING;
+			this->velY = -this->velY * NET_DAMPING;
 		}
 	}
 }
