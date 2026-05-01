@@ -80,11 +80,8 @@ void ExtincaoFC::ResetMatch()
 
 // ------------------------------------------------------------------------------
 
-void ExtincaoFC::Update()
+void ExtincaoFC::ProcessInputs()
 {
-    // ==========================================
-    // 1. PROCESSAMENTO DE INPUTS (Controles de Sistema)
-    // ==========================================
     if (window->KeyDown(VK_ESCAPE)) {
         window->Close();
     }
@@ -92,10 +89,12 @@ void ExtincaoFC::Update()
     if (window->KeyPress('B')) {
         viewBBox = !viewBBox;
     }
+}
 
-    // ==========================================
-    // 2. REGRAS DA PARTIDA (Gols e Reset)
-    // ==========================================
+// ------------------------------------------------------------------------------
+
+void ExtincaoFC::ManageMatchState()
+{
     uint currentTotalScoreBoard = player1->Score() + player2->Score();
 
     // Detectou um gol novo
@@ -117,10 +116,15 @@ void ExtincaoFC::Update()
             ResetMatch();
         }
     }
+}
 
-    // ==========================================
-    // 3. ATUALIZAÇÃO DA ENGINE
-    // ==========================================
+// ------------------------------------------------------------------------------
+
+void ExtincaoFC::Update()
+{
+    ProcessInputs();       // Lida com teclas pressionadas
+    ManageMatchState();    // Lida com placares e cronômetros
+
     scene->Update();
     scene->CollisionDetection();
 }

@@ -64,6 +64,8 @@ private:
     bool viewBBox = false;             // visualiza bounding box
 
     void ResetMatch();
+    void ProcessInputs();
+    void ManageMatchState();
 
 public:
     static Scene * scene;           // gerenciador de cena
