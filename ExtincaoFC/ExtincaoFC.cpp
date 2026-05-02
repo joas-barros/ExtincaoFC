@@ -22,6 +22,14 @@ Audio * ExtincaoFC::audio = nullptr;
 
 void ExtincaoFC::Init()
 {
+    // cria sistema de áudio
+    audio = new Audio();
+    audio->Add(GOAL_SCREAM, "Resources/goal.wav");
+    audio->Add(INITIAL_WHISTLE, "Resources/initial_whistle.wav");
+    audio->Add(FINAL_WHISTLE, "Resources/final_whistle.wav");
+    audio->Add(KICK, "Resources/kick.wav");
+    audio->Add(JUMP, "Resources/jump.wav");
+
     // cria cena do jogo
     scene = new Scene();
 
@@ -30,11 +38,6 @@ void ExtincaoFC::Init()
 
     smallFonts = new Font("Resources/small_fonts_12.png");
     smallFonts->Spacing("Resources/small_fonts_12.dat");
-
-	// cria sistema de áudio
-	audio = new Audio();
-
-    
 
     // pano de fundo do jogo
     backg = new Sprite("Resources/background.png");
@@ -130,6 +133,7 @@ void ExtincaoFC::ProcessKickoff()
         player2->canMove = true;
 
         ball->Kickoff(BallDirection());
+		audio->Play(INITIAL_WHISTLE);
     }
 }
 
@@ -202,13 +206,16 @@ bool ExtincaoFC::TreatMatchEnding()
     // CONDIÇÃO 1: LIMITE DE GOLS ATINGIDO
     // ==========================================
     if (lastTrexScore >= SCORE_TO_WIN) {
-        winner = TREX; 
+        winner = TREX;
+
+		audio->Play(FINAL_WHISTLE);
         Finalize();
         return true;
     }
 
     if (lastTriceratopsScore >= SCORE_TO_WIN) {
         winner = TRICERATOPS;
+		audio->Play(FINAL_WHISTLE);
         Finalize();
         return true;
     }
@@ -231,6 +238,7 @@ bool ExtincaoFC::TreatMatchEnding()
             winner = 99;
         }
 
+        audio->Play(FINAL_WHISTLE);
         Finalize();
         return true;
     }
