@@ -17,6 +17,9 @@
 Player::Player(Dinasaur t, float posX, float posY)
 {
     this->specie = t;
+	this->initialPosX = posX;
+	this->initialPosY = posY;
+
     MoveTo(posX, posY, Layer::MIDDLE);
 
 	type = PLAYER;
@@ -47,6 +50,16 @@ Player::Player(Dinasaur t, float posX, float posY)
 Player::~Player()
 {
 	delete sprite;
+}
+
+void Player::Reset()
+{
+    MoveTo(initialPosX, initialPosY);
+
+    velX = 0.0f;
+    velY = 0.0f;
+    onGround = true;
+	canMove = false;
 }
 
 // ---------------------------------------------------------------------------------
@@ -115,8 +128,8 @@ void Player::Update()
 
     if (specie == TREX)
     {
-        if (window->KeyDown('A')) velX = -PLAYER_MOVE_SPEED;
-        if (window->KeyDown('D')) velX = PLAYER_MOVE_SPEED;
+        if (window->KeyDown('A') && canMove) velX = -PLAYER_MOVE_SPEED;
+        if (window->KeyDown('D') && canMove) velX = PLAYER_MOVE_SPEED;
 
         
         if (window->KeyPress('W') && onGround) {
@@ -131,8 +144,8 @@ void Player::Update()
     }
     else if (specie == TRICERATOPS)
     {
-        if (window->KeyDown(VK_LEFT)) velX = -PLAYER_MOVE_SPEED;
-        if (window->KeyDown(VK_RIGHT)) velX = PLAYER_MOVE_SPEED;
+        if (window->KeyDown(VK_LEFT) && canMove) velX = -PLAYER_MOVE_SPEED;
+        if (window->KeyDown(VK_RIGHT) && canMove) velX = PLAYER_MOVE_SPEED;
 
         if (window->KeyPress(VK_UP) && onGround) {
             velY = -PLAYER_JUMP_FORCE;

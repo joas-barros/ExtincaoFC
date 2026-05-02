@@ -12,13 +12,18 @@ class Goal : public Object
 {
 private:
 	Sprite* sprite;                  // sprite da plataforma
-	Player* player;                  // jogador associado à meta
+	Player* scorer;                  // jogador associado à meta
+	Rect* sensorBBox;
 
 	void LoadBBoxFromFile(string filename, Mixed* mixedBBox);
 
 public:
 	Goal(Player* p, float posX, float posY);
 	~Goal();
+
+	// GETTERS
+	Player* GetScorer() const { return scorer; }
+	Rect* SensorBBox() const { return sensorBBox; }
 
 	void OnCollision(Object* obj);     // resolução da colisão
 	void Update();                      // atualização do objeto

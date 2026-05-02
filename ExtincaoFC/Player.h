@@ -43,21 +43,28 @@ private:
 	// Guarda os limites da bounding box para cada espécie, para facilitar a resolução de colisão
     float bLeft, bRight, bTop, bBottom;
 
+	float initialPosX, initialPosY; // Guarda a posição inicial para o reset
+
 	void drawBBox(Dinasaur specie);
 
 public:
     float velX;                   
     float velY;
     bool onGround;
+    bool canMove;
 
     Player(Dinasaur t, float posX, float posY);                           // construtor
     ~Player();                          // destrutor
+
+    void Reset();
 
     void OnCollision(Object * obj);     // resolução da colisão
     void Update();                      // atualização do objeto
     void Draw();                        // desenho do objeto
 
 	uint Specie() const { return specie; } 
+	uint Score() const { return score; }
+	void IncreaseScore() { score++; }
 
     float Left() const { return x + bLeft; }
     float Right() const { return x + bRight; }

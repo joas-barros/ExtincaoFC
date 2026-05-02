@@ -31,15 +31,10 @@ Ball::Ball()
 	anim->Add(GODOWNRIGHT, SeqDownRight, 8);
 	anim->Add(GODOWNLEFT, SeqDownLeft, 8);
 
-	velX = 0.0f;
-	velY = 0.0f;
-	state = STILL;
-	active = false; 
+	Reset();
 
 	// cria bounding box
 	BBox(new Circle(36.0f));
-
-	MoveTo(window->CenterX(), window->CenterY() - 300.0f, Layer::LOWER);
 }
 
 Ball::~Ball()
@@ -48,17 +43,25 @@ Ball::~Ball()
 	delete anim;
 }
 
+void Ball::Reset()
+{
+	MoveTo(window->CenterX(), window->CenterY() - 300.0f, Layer::LOWER);
+	velX = 0.0f;
+	velY = 0.0f;
+	state = STILL;
+	active = false; 
+}
+
+void Ball::Kickoff(int direction)
+{
+	velX = 150.0f * direction;
+	active = true;
+}
+
 void Ball::Update()
 {
-	if (!active)
-	{
-		if (window->KeyPress(VK_RETURN)) { 
-			active = true;
-		}
-		else {
-			return; 
-		}
-	}
+
+	if (!active) return; 
 
 	// 2. APLICA GRAVIDADE E MOVIMENTO
 	velY += BALL_GRAVITY * gameTime;
