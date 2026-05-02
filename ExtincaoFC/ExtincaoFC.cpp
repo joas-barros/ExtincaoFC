@@ -25,8 +25,8 @@ void ExtincaoFC::Init()
     // cria cena do jogo
     scene = new Scene();
 
-    calibri = new Font("Resources/calibri_12.png");
-    calibri->Spacing("Resources/calibri_12.dat");
+    smallFonts72 = new Font("Resources/small_fonts_72.png");
+    smallFonts72->Spacing("Resources/small_fonts_72.dat");
 
     smallFonts = new Font("Resources/small_fonts_12.png");
     smallFonts->Spacing("Resources/small_fonts_12.dat");
@@ -73,6 +73,8 @@ void ExtincaoFC::Init()
     waitingReset = false;
     resetTimer = 0.0f;
 
+    isKickoff = true;
+    kickoffTimer = 0.0f;
 	victimSpecie = -1; // nenhuma espécie é a vítima no início do jogo
 }
 
@@ -93,10 +95,13 @@ void ExtincaoFC::ResetMatch()
 {
     player1->Reset();
     player2->Reset();
-    ball->Reset(BallDirection());
+    ball->Reset();
 
 	sensor1->Reset();
 	sensor2->Reset();
+
+    isKickoff = true;
+    kickoffTimer = 0.0f;
 }
 
 // ------------------------------------------------------------------------------
@@ -116,53 +121,73 @@ void ExtincaoFC::ProcessInputs()
 
 void ExtincaoFC::ManageMatchState()
 {
-    // 1. O RELÓGIO DA PARTIDA
-    // Só contabiliza o tempo se a bola estiver rolando (não estamos comemorando gol)
+    // ==========================================
+    // 1. ESTADO: AGUARDANDO O APITO INICIAL
+    // ==========================================
+    if (isKickoff)
+    {
+        kickoffTimer += gameTime;
+
+        // Passaram os 3 segundos de tensão!
+        if (kickoffTimer >= 3.0f)
+        {
+            isKickoff = false;          // Libera a trava
+            player1->canMove = true;       // Solta os dinossauros
+            player2->canMove = true;
+
+            // APITA O INÍCIO!
+            ball->Kickoff(BallDirection());
+        }
+
+        // Importante: Se estamos no kickoff, ignoramos o resto das regras
+        return;
+    }
+
+    // ==========================================
+    // 2. ESTADO: BOLA ROLANDO (A partir daqui o jogo está valendo)
+    // ==========================================
+
+    // O relógio da partida só roda se não estivermos comemorando um gol
     if (!waitingReset)
     {
         matchTimer += gameTime;
-
-        // Se o tempo estourou no meio da jogada, o juiz apita o fim imediatamente!
         if (matchTimer >= MATCH_TIME_LIMIT)
         {
             TreatMatchEnding();
-            return; // Sai da função para congelar o jogo
+            return;
         }
     }
 
+    // ==========================================
+    // 3. ESTADO: GOL E COMEMORAÇÃO
+    // ==========================================
     uint currentTotalScoreBoard = player1->Score() + player2->Score();
 
-    // Detectou um gol novo
+    // Detectou o gol
     if (currentTotalScoreBoard > lastTotalScoreBoard)
     {
-		// Verifica qual jogador marcou o gol e define a espécie vítima
-        if (player1->Score() > lastTrexScore) {
-            victimSpecie = TRICERATOPS;
-        }
-        else {
-            victimSpecie = TREX;
-        }
+        if (player1->Score() > lastTrexScore) victimSpecie = TRICERATOPS;
+        else victimSpecie = TREX;
 
-		// Salva o placar atual para comparação no próximo gol
         lastTrexScore = player1->Score();
         lastTriceratopsScore = player2->Score();
-
         lastTotalScoreBoard = currentTotalScoreBoard;
-        waitingReset = true;
+
+        waitingReset = true; // Inicia a comemoração
         resetTimer = 0.0f;
     }
 
-    // Cronômetro de comemoração
+    // Tempo da bola balançando na rede
     if (waitingReset)
     {
         resetTimer += gameTime;
-
         if (resetTimer >= TIME_TO_RESET)
         {
             waitingReset = false;
 
-            if (!TreatMatchEnding()) {
-                ResetMatch();
+            if (!TreatMatchEnding())
+            {
+                ResetMatch(); // Isso aqui vai jogar o código de volta pro isKickoff = true!
             }
         }
     }
@@ -302,7 +327,7 @@ void ExtincaoFC::Finalize()
 	delete sensor1;
 	delete sensor2;
 	delete ball;
-	delete calibri;
+	delete smallFonts72;
 	delete smallFonts;
 }
 

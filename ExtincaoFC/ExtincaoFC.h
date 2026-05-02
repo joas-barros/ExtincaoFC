@@ -53,7 +53,7 @@ private:
 	Player * player2 = nullptr;
     Sprite * backg = nullptr;
     Font* smallFonts = nullptr;
-    Font* calibri = nullptr;
+    Font* smallFonts72 = nullptr;
 
 	Goal * goal1 = nullptr;
 	Goal * goal2 = nullptr;
@@ -70,6 +70,10 @@ private:
     bool waitingReset;
 	float resetTimer;
     float matchTimer;
+
+	// atributos para o tempo de kickoff
+    bool isKickoff;
+    float kickoffTimer;
 
 	uint winner;                      // espécie vencedora do jogo
     uint victimSpecie;

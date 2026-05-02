@@ -51,6 +51,7 @@ public:
     float velX;                   
     float velY;
     bool onGround;
+    bool canMove;
 
     Player(Dinasaur t, float posX, float posY);                           // construtor
     ~Player();                          // destrutor
