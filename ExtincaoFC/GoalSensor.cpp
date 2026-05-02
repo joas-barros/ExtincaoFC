@@ -72,6 +72,7 @@ void GoalSensor::OnCollision(Object* obj)
             {
                 targetGoal->GetScorer()->IncreaseScore();
                 hasScored = true;
+				ExtincaoFC::audio->Play(GOAL_SCREAM);
             }
         }
     }

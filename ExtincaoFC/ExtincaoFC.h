@@ -34,7 +34,7 @@ using namespace std;
 
 // ------------------------------------------------------------------------------
 
-enum { MUSIC, TRANSITION };
+enum Sounds { GOAL_SCREAM, INITIAL_WHISTLE, FINAL_WHISTLE, KICK, JUMP };
 
 enum ObjTypes
 {

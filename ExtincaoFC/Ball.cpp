@@ -170,6 +170,8 @@ void Ball::OnCollision(Object* obj)
 		// Dá um micro-empurrãozinho na bola na direção que ela vai voar 
 		// para garantir que ela não bata 2x no mesmo jogador no próximo frame
 		this->Translate(dirX * 5.0f, dirY * 5.0f);
+
+		ExtincaoFC::audio->Play(KICK);
 	}
 
 	if (obj->Type() == GOAL)

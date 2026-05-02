@@ -134,7 +134,8 @@ void Player::Update()
         
         if (window->KeyPress('W') && onGround) {
             velY = -PLAYER_JUMP_FORCE; 
-            onGround = false;  
+            onGround = false; 
+			ExtincaoFC::audio->Play(JUMP);
         }
 
         
@@ -150,6 +151,7 @@ void Player::Update()
         if (window->KeyPress(VK_UP) && onGround) {
             velY = -PLAYER_JUMP_FORCE;
             onGround = false;
+            ExtincaoFC::audio->Play(JUMP);
         }
 
         if (window->KeyDown(VK_DOWN) && !onGround) {
