@@ -30,6 +30,7 @@ using namespace std;
 #define SCORE_TO_WIN 5
 #define TIME_TO_RESET 1.0f
 #define MATCH_TIME_LIMIT 60.0f
+#define KICKOFF_TIME 3.0f
 
 // ------------------------------------------------------------------------------
 
@@ -84,6 +85,11 @@ private:
     void ProcessInputs();
     void ManageMatchState();
     int BallDirection();
+
+	// Metodos para tratar os estados do jogo
+    void ProcessKickoff();
+    bool ProcessMatchTimer();
+    void ProcessGoalCelebration();
 
     // Metodos para tratar texto
 	string GetMatchTimeString() const;

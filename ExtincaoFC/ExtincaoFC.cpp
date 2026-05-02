@@ -119,48 +119,36 @@ void ExtincaoFC::ProcessInputs()
 
 // ------------------------------------------------------------------------------
 
-void ExtincaoFC::ManageMatchState()
+void ExtincaoFC::ProcessKickoff()
 {
-    // ==========================================
-    // 1. ESTADO: AGUARDANDO O APITO INICIAL
-    // ==========================================
-    if (isKickoff)
+    kickoffTimer += gameTime;
+
+    if (kickoffTimer >= KICKOFF_TIME)
     {
-        kickoffTimer += gameTime;
+        isKickoff = false;
+        player1->canMove = true;
+        player2->canMove = true;
 
-        // Passaram os 3 segundos de tensão!
-        if (kickoffTimer >= 3.0f)
-        {
-            isKickoff = false;          // Libera a trava
-            player1->canMove = true;       // Solta os dinossauros
-            player2->canMove = true;
-
-            // APITA O INÍCIO!
-            ball->Kickoff(BallDirection());
-        }
-
-        // Importante: Se estamos no kickoff, ignoramos o resto das regras
-        return;
+        ball->Kickoff(BallDirection());
     }
+}
 
-    // ==========================================
-    // 2. ESTADO: BOLA ROLANDO (A partir daqui o jogo está valendo)
-    // ==========================================
-
-    // O relógio da partida só roda se não estivermos comemorando um gol
+bool ExtincaoFC::ProcessMatchTimer()
+{
     if (!waitingReset)
     {
         matchTimer += gameTime;
         if (matchTimer >= MATCH_TIME_LIMIT)
         {
             TreatMatchEnding();
-            return;
+            return true; // Avisa o Maestro que o tempo esgotou!
         }
     }
+    return false; // O jogo continua
+}
 
-    // ==========================================
-    // 3. ESTADO: GOL E COMEMORAÇÃO
-    // ==========================================
+void ExtincaoFC::ProcessGoalCelebration()
+{
     uint currentTotalScoreBoard = player1->Score() + player2->Score();
 
     // Detectou o gol
@@ -173,7 +161,7 @@ void ExtincaoFC::ManageMatchState()
         lastTriceratopsScore = player2->Score();
         lastTotalScoreBoard = currentTotalScoreBoard;
 
-        waitingReset = true; // Inicia a comemoração
+        waitingReset = true;
         resetTimer = 0.0f;
     }
 
@@ -187,10 +175,23 @@ void ExtincaoFC::ManageMatchState()
 
             if (!TreatMatchEnding())
             {
-                ResetMatch(); // Isso aqui vai jogar o código de volta pro isKickoff = true!
+                ResetMatch();
             }
         }
     }
+}
+
+void ExtincaoFC::ManageMatchState()
+{
+    if (isKickoff)
+    {
+        ProcessKickoff();
+        return;
+    }
+
+	if (ProcessMatchTimer()) return;
+
+    ProcessGoalCelebration();
 }
 
 // ------------------------------------------------------------------------------
