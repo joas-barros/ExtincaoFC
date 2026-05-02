@@ -259,6 +259,7 @@ void ExtincaoFC::Draw()
 
     DrawMatchTime();
     DrawSscoreBoard();
+	DrawKickoffCountdown();
 
     if (viewBBox)
     {
@@ -312,6 +313,17 @@ string ExtincaoFC::GetMatchTimeString() const
     timeString += to_string(seconds);
 
     return timeString;
+}
+
+void ExtincaoFC::DrawKickoffCountdown()
+{
+    if (isKickoff)
+    {
+		Color yellowRed = { 1, 0.5f, 0, 1 }; 
+        int countdown = (int)(KICKOFF_TIME - kickoffTimer) + 1; 
+        string countdownText = to_string(countdown);
+        smallFonts72->Draw(window->CenterX() + 150.0f, window->CenterY(), countdownText, yellowRed, Layer::FRONT, 3.0f);
+    }
 }
 
 // ------------------------------------------------------------------------------

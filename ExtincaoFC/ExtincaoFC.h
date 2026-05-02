@@ -95,6 +95,7 @@ private:
 	string GetMatchTimeString() const;
 	void DrawMatchTime();
 	void DrawSscoreBoard();
+	void DrawKickoffCountdown();
 
     bool TreatMatchEnding();
 
