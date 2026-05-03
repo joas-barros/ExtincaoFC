@@ -1,4 +1,5 @@
 #include "Ball.h"
+#include "Arena1.h"
 #include "ExtincaoFC.h"
 #include <cmath>
 using namespace std;
@@ -171,7 +172,7 @@ void Ball::OnCollision(Object* obj)
 		// para garantir que ela não bata 2x no mesmo jogador no próximo frame
 		this->Translate(dirX * 5.0f, dirY * 5.0f);
 
-		ExtincaoFC::audio->Play(KICK);
+		if (gAudio) gAudio->Play(KICK);
 	}
 
 	if (obj->Type() == GOAL)

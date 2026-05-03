@@ -11,13 +11,15 @@ using namespace std;
 class Goal : public Object
 {
 private:
-	Sprite* sprite;                  // sprite da plataforma
 	Player* scorer;                  // jogador associado à meta
 	Rect* sensorBBox;
 
-	void LoadBBoxFromFile(string filename, Mixed* mixedBBox);
-
 public:
+	Sprite* sprite;                  // sprite do gol
+
+	void LoadBBoxFromFile(string filename, Mixed* mixedBBox);
+	void ReloadBBox(string filename);
+
 	Goal(Player* p, float posX, float posY);
 	~Goal();
 

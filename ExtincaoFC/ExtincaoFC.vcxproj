@@ -167,6 +167,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Arena1.cpp" />
+    <ClCompile Include="Arena2.cpp" />
+    <ClCompile Include="Arena3.cpp" />
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -177,6 +180,7 @@
     <ClCompile Include="GoalSensor.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Home.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ExtincaoFC.cpp" />
@@ -192,6 +196,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Arena1.h" />
+    <ClInclude Include="Arena2.h" />
+    <ClInclude Include="Arena3.h" />
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Engine.h" />
@@ -202,6 +209,7 @@
     <ClInclude Include="GoalSensor.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="Home.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ExtincaoFC.h" />

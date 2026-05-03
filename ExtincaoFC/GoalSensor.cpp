@@ -1,6 +1,7 @@
 #include "GoalSensor.h"
-#include "ExtincaoFC.h"
+#include "Arena1.h"
 #include "Ball.h"
+#include "ExtincaoFC.h"
 
 GoalSensor::GoalSensor(Goal* g)
 {
@@ -72,7 +73,7 @@ void GoalSensor::OnCollision(Object* obj)
             {
                 targetGoal->GetScorer()->IncreaseScore();
                 hasScored = true;
-				ExtincaoFC::audio->Play(GOAL_SCREAM);
+                if (gAudio) gAudio->Play(GOAL_SCREAM);
             }
         }
     }
