@@ -78,7 +78,7 @@ protected:
     virtual void DrawSscoreBoard();
     void DrawKickoffCountdown();
 
-    bool TreatMatchEnding();
+    virtual bool TreatMatchEnding();
 
 public:
     static Scene* scene;           // gerenciador de cena

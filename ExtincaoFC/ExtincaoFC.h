@@ -26,9 +26,8 @@
 #include "GoalSensor.h"
 #include <string>
 
-// No ExtincaoFC.h (adicione se não estiver lá)
 #define MATCH_TIME_LIMIT 90.0f
-#define SCORE_TO_WIN 5
+#define SCORE_TO_WIN 2
 #define TIME_TO_RESET 3.0f
 #define KICKOFF_TIME 2.0f
 
@@ -56,5 +55,7 @@ extern Scene* gScene;
 extern int gTotalWinsTrex;
 extern int gTotalWinsTriceratops;
 extern int gCurrentMatch; // Para saber se estamos na partida 1, 2 ou 3
+extern int gTotalGolsTrex;         // Acumulado de gols do T-Rex
+extern int gTotalGolsTriceratops;  // Acumulado de gols do Triceratops
 
 #endif

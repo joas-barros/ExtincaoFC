@@ -14,15 +14,23 @@
 #include "Arena1.h"
 #include "ExtincaoFC.h"
 #include "Resources.h"
+#include "GameOver.h"
+#include "Arena2.h"
+#include "Arena3.h"
 
 // ------------------------------------------------------------------------------
 
 Audio* gAudio = nullptr;
 Scene* gScene = nullptr;
 
+// Controle de arenas vencidas por cada jogador (para o placar geral e para a estrela de campeão)
 int gTotalWinsTrex = 0;
 int gTotalWinsTriceratops = 0;
 int gCurrentMatch = 1;
+
+// Controle de Gols da última partida, para mostrar no Game Over
+int gTotalGolsTrex = 0;
+int gTotalGolsTriceratops = 0;
 
 // ------------------------------------------------------------------------------
 

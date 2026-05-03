@@ -15,6 +15,7 @@
 #include "Home.h"
 #include "ExtincaoFC.h"
 #include "Arena2.h"
+#include "GameOver.h"
 
 // -----------------------------------------------------------------------------
 
@@ -236,7 +237,11 @@ bool Arena1::TreatMatchEnding()
     if (matchEnded) {
         audio->Play(FINAL_WHISTLE);
 
-        // Atualiza placar global
+        // --- NOVIDADE: ACUMULA OS GOLS PARA O PLACAR GERAL ---
+        gTotalGolsTrex += lastTrexScore;
+        gTotalGolsTriceratops += lastTriceratopsScore;
+
+        // Atualiza placar global de vitórias (estrelas)
         if (matchWinner == TREX) gTotalWinsTrex++;
         else if (matchWinner == TRICERATOPS) gTotalWinsTriceratops++;
 
@@ -244,9 +249,8 @@ bool Arena1::TreatMatchEnding()
 
         // Lógica de MD3: Alguém já ganhou 2? Ou já jogamos as 3?
         if (gTotalWinsTrex == 2 || gTotalWinsTriceratops == 2 || gCurrentMatch > 3) {
-            // Vai para a tela de Resultado Final (você ainda vai criar)
-            // Engine::Next<GameOver>(); 
-            window->Close(); // Por enquanto apenas fecha para testar
+            // Agora que o GameOver está pronto, mude para:
+            Engine::Next<GameOver>();
         }
         else {
             // Se ninguém ganhou 2 ainda, vai para a Arena 2

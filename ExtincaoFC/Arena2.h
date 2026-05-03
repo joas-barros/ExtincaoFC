@@ -21,6 +21,7 @@ protected:
     int BallDirection();
     void ProcessInputs();
     void Update();
+    bool TreatMatchEnding();
 
 public:
     void Init();  

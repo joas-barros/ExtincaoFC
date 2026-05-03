@@ -12,6 +12,7 @@
 #include "Engine.h"
 #include "ExtincaoFC.h"
 #include "Arena3.h"
+#include "GameOver.h"
 
 // -----------------------------------------------------------------------------
 
@@ -150,6 +151,34 @@ void Arena2::DrawSscoreBoard()
 
 // -----------------------------------------------------------------------------
 
+bool Arena2::TreatMatchEnding()
+{
+    if (matchTimer <= 0 || player1->Score() >= SCORE_TO_WIN || player2->Score() >= SCORE_TO_WIN)
+    {
+        // --- ACUMULA OS GOLS DA ARENA 2 ---
+        gTotalGolsTrex += player1->Score();
+        gTotalGolsTriceratops += player2->Score();
+
+        // Lógica de vitórias de arena
+        if (player1->Score() > player2->Score()) gTotalWinsTrex++;
+        else if (player2->Score() > player1->Score()) gTotalWinsTriceratops++;
+
+        // Controle de fluxo
+        if (gTotalWinsTrex == 1 && gTotalWinsTriceratops == 1)
+        {
+            Engine::Next<Arena3>();
+        }
+        else
+        {
+            Engine::Next<GameOver>();
+        }
+        return true;
+    }
+    return false;
+}
+
+// -----------------------------------------------------------------------------
+
 void Arena2::Draw()
 {
     backg->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
@@ -164,3 +193,4 @@ void Arena2::Draw()
 }
 
 // -----------------------------------------------------------------------------
+
