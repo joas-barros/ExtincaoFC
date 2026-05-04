@@ -13,6 +13,7 @@
 #include "Home.h"
 #include "ExtincaoFC.h"
 #include "Arena1.h"
+#include "Help.h"
 
 // ------------------------------------------------------------------------------
 
@@ -32,13 +33,15 @@ void Home::Finalize()
 
 void Home::Update()
 {
-    // sai do jogo com a tecla ESC
     if (window->KeyPress(VK_ESCAPE))
         window->Close();
 
-    // passa ao primeiro nível com ENTER
     if (window->KeyPress(VK_RETURN))
         Engine::Next<Arena1>();
+
+    // NOVIDADE: Abre a tela de ajuda ao pressionar 'H'
+    if (window->KeyPress('H'))
+        Engine::Next<Help>();
 }
 
 // ------------------------------------------------------------------------------

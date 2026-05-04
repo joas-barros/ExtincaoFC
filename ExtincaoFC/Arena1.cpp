@@ -235,25 +235,26 @@ bool Arena1::TreatMatchEnding()
     }
 
     if (matchEnded) {
-        audio->Play(FINAL_WHISTLE);
+        // 1. Toca o apito usando o gAudio global
+        gAudio->Play(FINAL_WHISTLE);
 
-        // --- NOVIDADE: ACUMULA OS GOLS PARA O PLACAR GERAL ---
+        // 2. ACUMULA OS GOLS PARA O PLACAR GERAL (A "buniteza" que faltava)
         gTotalGolsTrex += lastTrexScore;
         gTotalGolsTriceratops += lastTriceratopsScore;
 
-        // Atualiza placar global de vitórias (estrelas)
+        // 3. Atualiza placar global de vitórias (estrelas)
         if (matchWinner == TREX) gTotalWinsTrex++;
         else if (matchWinner == TRICERATOPS) gTotalWinsTriceratops++;
 
         gCurrentMatch++; // Avança o contador de partidas
 
-        // Lógica de MD3: Alguém já ganhou 2? Ou já jogamos as 3?
+        // 4. Lógica de transição
+        // Se alguém já ganhou 2 arenas, vai direto para o GameOver
         if (gTotalWinsTrex == 2 || gTotalWinsTriceratops == 2 || gCurrentMatch > 3) {
-            // Agora que o GameOver está pronto, mude para:
             Engine::Next<GameOver>();
         }
         else {
-            // Se ninguém ganhou 2 ainda, vai para a Arena 2
+            // Caso contrário, segue o campeonato para a Arena 2
             Engine::Next<Arena2>();
         }
         return true;

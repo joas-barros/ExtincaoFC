@@ -15,13 +15,13 @@ void GameOver::Init()
     // 2. Define o nome e cria o objeto do vencedor baseado nas vitórias globais
     if (gTotalWinsTrex > gTotalWinsTriceratops)
     {
-        winnerText = "T-REX EH O GRANDE CAMPEAO!";
+        winnerText = "T-REX: O GRANDE CAMPEAO!";
         // Criamos o objeto do T-Rex centralizado
         winnerObj = new Player(TREX, window->CenterX(), window->CenterY() + 80);
     }
     else if (gTotalWinsTriceratops > gTotalWinsTrex)
     {
-        winnerText = "TRICERATOPS EH O GRANDE CAMPEAO!";
+        winnerText = "TRICERATOPS: O GRANDE CAMPEAO!";
         // Criamos o objeto do Triceratops centralizado
         winnerObj = new Player(TRICERATOPS, window->CenterX(), window->CenterY() + 80);
     }
@@ -80,13 +80,13 @@ void GameOver::Draw()
 
     if (smallFonts) {
         // Exibe o Nome do Vencedor em destaque
-        smallFonts->Draw(window->CenterX() - 500, 80, winnerText, yellow, Layer::FRONT, 3.0f);
+        smallFonts->Draw(window->CenterX() - 450, 90, winnerText, yellow, Layer::FRONT, 3.0f);
 
         // Exibe o Placar de Arenas
-        smallFonts->Draw(window->CenterX() - 200, 160, scoreText, white, Layer::FRONT, 2.0f);
+        smallFonts->Draw(window->CenterX() - 200, 180, scoreText, yellow, Layer::FRONT, 2.0f);
 
         // Exibe o Placar de Gols Acumulados
-        smallFonts->Draw(window->CenterX() - 180, 220, goalsText, white, Layer::FRONT, 1.0f);
+        smallFonts->Draw(window->CenterX() - 180, 240, goalsText, yellow, Layer::FRONT, 1.0f);
 
         smallFonts->Draw(window->CenterX() - 280, window->Height() - 90, "PRESSIONE ENTER PARA SAIR", white, Layer::FRONT, 1.5f);
         smallFonts->Draw(window->CenterX() - 280, window->Height() - 60, "PRESSIONE 'R' PARA REINICIAR", white, Layer::FRONT, 1.0f);

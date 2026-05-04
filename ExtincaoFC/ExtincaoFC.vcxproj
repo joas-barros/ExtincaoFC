@@ -181,6 +181,7 @@
     <ClCompile Include="GoalSensor.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="Home.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -211,6 +212,7 @@
     <ClInclude Include="GoalSensor.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="Help.h" />
     <ClInclude Include="Home.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Object.h" />

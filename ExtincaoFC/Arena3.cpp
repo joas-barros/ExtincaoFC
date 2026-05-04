@@ -14,7 +14,7 @@ void Arena3::Init()
 
     // 2. Troca o fundo para o definitivo da Arena 3
     delete backg;
-    backg = new Sprite("Resources/Sky.png");
+    backg = new Sprite("Resources/background_arena3.png");
 
     // O kickoff usará o BallDirection() da Arena 1 (Padrão)
     ResetMatch();
@@ -72,6 +72,8 @@ bool Arena3::TreatMatchEnding()
 {
     if (matchTimer <= 0 || player1->Score() >= SCORE_TO_WIN || player2->Score() >= SCORE_TO_WIN)
     {
+        gAudio->Play(FINAL_WHISTLE);
+
         // --- ACUMULA OS GOLS DA ARENA 3 ---
         gTotalGolsTrex += player1->Score();
         gTotalGolsTriceratops += player2->Score();
