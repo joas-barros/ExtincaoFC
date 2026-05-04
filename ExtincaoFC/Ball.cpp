@@ -168,9 +168,24 @@ void Ball::OnCollision(Object* obj)
 		if (this->velY > BALL_MAX_SPEED)  this->velY = BALL_MAX_SPEED;
 		if (this->velY < -BALL_MAX_SPEED) this->velY = -BALL_MAX_SPEED;
 
-		// Dá um micro-empurrãozinho na bola na direção que ela vai voar 
-		// para garantir que ela não bata 2x no mesmo jogador no próximo frame
-		this->Translate(dirX * 5.0f, dirY * 5.0f);
+		// Calcula o "raio" aproximado do Player (metade da largura)
+		float pRadius = (p->Right() - p->Left()) / 2.0f;
+
+		// Descobre o quanto a bola e o player entraram um no outro
+		// (Soma dos raios menos a distância atual entre os centros)
+		float overlap = (c->radius + pRadius) - distance;
+
+		// Garante um empurrão mínimo caso a colisão tenha sido de "raspão" na quina da BBox
+		if (overlap < 5.0f) overlap = 5.0f;
+
+		if (overlap > 0.0f)
+		{
+			// A BOLA vai na direção do impacto (afastando do player)
+			this->Translate(dirX * overlap * 0.5f, dirY * overlap * 0.5f);
+
+			// O PLAYER é empurrado na direção oposta (A BOLA EMPURRA O PLAYER!)
+			p->Translate(-dirX * overlap * 0.5f, -dirY * overlap * 0.5f);
+		}
 
 		if (gAudio) gAudio->Play(KICK);
 	}

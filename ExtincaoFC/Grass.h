@@ -10,7 +10,7 @@
 #include "Grass.h"
 
 #define GRASS_HEIGHT 220.0f
-#define GRASS_RESTITUTION 0.7f
+#define GRASS_RESTITUTION 0.9f
 #define GRASS_FRICTION 0.98f
 
 // ---------------------------------------------------------------------------------

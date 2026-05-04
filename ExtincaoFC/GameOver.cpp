@@ -75,18 +75,18 @@ void GameOver::Draw()
     if (winnerObj)
         winnerObj->Draw();
 
-    Color yellow = { 1, 1, 0, 1 };
+	Color darkGreen = { 0, 0.5f, 0, 1 };
     Color white = { 1, 1, 1, 1 };
 
     if (smallFonts) {
         // Exibe o Nome do Vencedor em destaque
-        smallFonts->Draw(window->CenterX() - 450, 90, winnerText, yellow, Layer::FRONT, 3.0f);
+        smallFonts->Draw(window->CenterX() - 450, 90, winnerText, darkGreen, Layer::FRONT, 3.0f);
 
         // Exibe o Placar de Arenas
-        smallFonts->Draw(window->CenterX() - 200, 180, scoreText, yellow, Layer::FRONT, 2.0f);
+        smallFonts->Draw(window->CenterX() - 200, 180, scoreText, darkGreen, Layer::FRONT, 2.0f);
 
         // Exibe o Placar de Gols Acumulados
-        smallFonts->Draw(window->CenterX() - 180, 240, goalsText, yellow, Layer::FRONT, 1.0f);
+        smallFonts->Draw(window->CenterX() - 180, 240, goalsText, darkGreen, Layer::FRONT, 1.0f);
 
         smallFonts->Draw(window->CenterX() - 280, window->Height() - 90, "PRESSIONE ENTER PARA SAIR", white, Layer::FRONT, 1.5f);
         smallFonts->Draw(window->CenterX() - 280, window->Height() - 60, "PRESSIONE 'R' PARA REINICIAR", white, Layer::FRONT, 1.0f);
