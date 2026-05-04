@@ -35,28 +35,27 @@ enum Dinasaur {TREX, TRICERATOPS};
 
 class Player : public Object
 {
-private:
-    Sprite* sprite;
-	Dinasaur specie;
+protected:
+    Dinasaur specie;
     uint score;
-
-	// Guarda os limites da bounding box para cada espécie, para facilitar a resolução de colisão
     float bLeft, bRight, bTop, bBottom;
-
-	float initialPosX, initialPosY; // Guarda a posição inicial para o reset
-
-	void drawBBox(Dinasaur specie);
-
+    float initialPosX, initialPosY;
+        
 public:
-    float velX;                   
+    Sprite* sprite = nullptr; // Público para facilitar a troca na Arena 2
+    float velX;
     float velY;
     bool onGround;
     bool canMove;
+    float scaleX = 1.0f;
+
+    void drawBBox(Dinasaur type, bool flipped = false);
 
     Player(Dinasaur t, float posX, float posY);                           // construtor
-    ~Player();                          // destrutor
+    ~Player();                                                            // destrutor
 
     void Reset();
+    void SetInitialPos(float x, float y) { initialPosX = x; initialPosY = y; MoveTo(x, y); }
 
     void OnCollision(Object * obj);     // resolução da colisão
     void Update();                      // atualização do objeto

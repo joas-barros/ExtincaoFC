@@ -25,90 +25,37 @@
 #include "Ball.h"
 #include "GoalSensor.h"
 #include <string>
-using namespace std;
 
-#define SCORE_TO_WIN 5
-#define TIME_TO_RESET 1.0f
-#define MATCH_TIME_LIMIT 60.0f
-#define KICKOFF_TIME 3.0f
+#define MATCH_TIME_LIMIT 90.0f
+#define SCORE_TO_WIN 3
+#define TIME_TO_RESET 3.0f
+#define KICKOFF_TIME 2.0f
 
 // ------------------------------------------------------------------------------
 
-enum Sounds { GOAL_SCREAM, INITIAL_WHISTLE, FINAL_WHISTLE, KICK, JUMP };
+enum Sounds { GOAL_SCREAM, INITIAL_WHISTLE, FINAL_WHISTLE, KICK, JUMP, CHAMPIONS_SONG };
 
 enum ObjTypes
 {
-    PLAYER,                             
-    BALL,                               
+    PLAYER,
+    BALL,
     GRASS,
-	GOAL,
-	SENSOR
+    GOAL,
+    SENSOR
 };
 
 // ------------------------------------------------------------------------------
 
-class ExtincaoFC : public Game
-{
-private:
-    Player * player1 = nullptr; 
-	Player * player2 = nullptr;
-    Sprite * backg = nullptr;
-    Font* smallFonts = nullptr;
-    Font* smallFonts72 = nullptr;
+class Scene; // Forward declaration
+class Audio;
 
-	Goal * goal1 = nullptr;
-	Goal * goal2 = nullptr;
-
-	GoalSensor * sensor1 = nullptr;
-	GoalSensor * sensor2 = nullptr;
-
-	Ball * ball = nullptr;
-
-	uint lastTotalScoreBoard;          // pontuação total do placar
-	uint lastTrexScore;               // pontuação do T-Rex no último placar
-	uint lastTriceratopsScore;         // pontuação do Triceratops no último placar
-
-    bool waitingReset;
-	float resetTimer;
-    float matchTimer;
-
-	// atributos para o tempo de kickoff
-    bool isKickoff;
-    float kickoffTimer;
-
-	uint winner;                      // espécie vencedora do jogo
-    uint victimSpecie;
-
-    bool viewBBox = false;             // visualiza bounding box
-
-    void ResetMatch();
-    void ProcessInputs();
-    void ManageMatchState();
-    int BallDirection();
-
-	// Metodos para tratar os estados do jogo
-    void ProcessKickoff();
-    bool ProcessMatchTimer();
-    void ProcessGoalCelebration();
-
-    // Metodos para tratar texto
-	string GetMatchTimeString() const;
-	void DrawMatchTime();
-	void DrawSscoreBoard();
-	void DrawKickoffCountdown();
-
-    bool TreatMatchEnding();
-
-public:
-    static Scene * scene;           // gerenciador de cena
-	static Audio * audio;           // gerenciador de áudio
-
-    void Init();                    // inicialização
-    void Update();                  // atualização
-    void Draw();                    // desenho
-    void Finalize();                // finalização
-};
-
-// ---------------------------------------------------------------------------------
+// Isso permite que QUALQUER arquivo .cpp use 'gAudio' ou 'gScene'
+extern Audio* gAudio;
+extern Scene* gScene;
+extern int gTotalWinsTrex;
+extern int gTotalWinsTriceratops;
+extern int gCurrentMatch; // Para saber se estamos na partida 1, 2 ou 3
+extern int gTotalGolsTrex;         // Acumulado de gols do T-Rex
+extern int gTotalGolsTriceratops;  // Acumulado de gols do Triceratops
 
 #endif

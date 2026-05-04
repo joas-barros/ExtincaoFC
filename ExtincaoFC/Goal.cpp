@@ -113,3 +113,16 @@ void Goal::Update()
 {
 	// Implement update logic here
 }
+
+void Goal::ReloadBBox(string filename)
+{
+	// Cria um novo container de colisão
+	Mixed* newBBox = new Mixed();
+
+	// Chama a função original da engine para preencher o container
+	// com os dados do seu arquivo TXT
+	LoadBBoxFromFile(filename, newBBox);
+
+	// Substitui a BBox antiga pela nova no objeto
+	BBox(newBBox);
+}
