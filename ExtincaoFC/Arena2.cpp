@@ -137,7 +137,7 @@ void Arena2::DrawSscoreBoard()
 
     // Estrela se o Triceratops ganhou a Arena1
     if (gTotalWinsTriceratops > 0)
-        smallFonts->Draw(110.0f, 190.0f, "*", starColor, Layer::FRONT, 2.0f);
+        smallFonts72->Draw(500.0f, 80.0f, "*", starColor, Layer::FRONT, 2.0f);
 
     // LADO DIREITO: T-REX (Player1) — fisicamente na direita na Arena2
     float trexX = window->Width() - 200.0f;
@@ -146,7 +146,7 @@ void Arena2::DrawSscoreBoard()
 
     // Estrela se o T-Rex ganhou a Arena1
     if (gTotalWinsTrex > 0)
-        smallFonts->Draw(window->Width() - 140.0f, 190.0f, "*", starColor, Layer::FRONT, 2.0f);
+        smallFonts72->Draw(window->Width() - 200.0f, 80.0f, "*", starColor, Layer::FRONT, 2.0f);
 }
 
 // -----------------------------------------------------------------------------

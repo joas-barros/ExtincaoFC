@@ -27,7 +27,7 @@
 #include <string>
 
 #define MATCH_TIME_LIMIT 90.0f
-#define SCORE_TO_WIN 3
+#define SCORE_TO_WIN 1
 #define TIME_TO_RESET 3.0f
 #define KICKOFF_TIME 2.0f
 

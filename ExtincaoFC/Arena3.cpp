@@ -35,7 +35,7 @@ void Arena3::DrawSscoreBoard()
     // Como é a final, o T-Rex obrigatoriamente tem 1 estrela (da Arena 1 ou 2)
     if (gTotalWinsTrex > 0)
     {
-        smallFonts->Draw(110.0f, 190.0f, "*", starColor, Layer::FRONT, 2.0f);
+        smallFonts72->Draw(300.0f, 80.0f, "*", starColor, Layer::FRONT, 2.0f);
     }
 
     // --- LADO DIREITO: TRICERATOPS (Player 2) ---
@@ -47,7 +47,7 @@ void Arena3::DrawSscoreBoard()
     // O Triceratops também tem 1 estrela garantida
     if (gTotalWinsTriceratops > 0)
     {
-        smallFonts->Draw(window->Width() - 140.0f, 190.0f, "*", starColor, Layer::FRONT, 2.0f);
+        smallFonts72->Draw(window->Width() - 290.0f, 80.0f, "*", starColor, Layer::FRONT, 2.0f);
     }
 }
 
