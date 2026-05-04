@@ -235,8 +235,6 @@ bool Arena1::TreatMatchEnding()
     }
 
     if (matchEnded) {
-        // 1. Toca o apito usando o gAudio global
-        gAudio->Play(FINAL_WHISTLE);
 
         // 2. ACUMULA OS GOLS PARA O PLACAR GERAL (A "buniteza" que faltava)
         gTotalGolsTrex += lastTrexScore;

@@ -12,6 +12,8 @@ void GameOver::Init()
     // 1. Inicializa a base (Fontes e sons)
     Arena1::Init();
 
+    gAudio->Play(FINAL_WHISTLE);
+
     // 2. Define o nome e cria o objeto do vencedor baseado nas vitórias globais
     if (gTotalWinsTrex > gTotalWinsTriceratops)
     {

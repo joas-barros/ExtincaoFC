@@ -72,7 +72,7 @@ bool Arena3::TreatMatchEnding()
 {
     if (matchTimer <= 0 || player1->Score() >= SCORE_TO_WIN || player2->Score() >= SCORE_TO_WIN)
     {
-        gAudio->Play(FINAL_WHISTLE);
+        
 
         // --- ACUMULA OS GOLS DA ARENA 3 ---
         gTotalGolsTrex += player1->Score();
