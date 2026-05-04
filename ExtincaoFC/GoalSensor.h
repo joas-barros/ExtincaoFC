@@ -20,6 +20,7 @@ public:
     void Draw();
 
     void Reset() { hasScored = false; }
+    void LockSensor() { hasScored = true; }
 };
 
 inline void GoalSensor::Draw() {}

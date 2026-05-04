@@ -177,6 +177,9 @@ void Arena1::ProcessGoalCelebration()
         lastTriceratopsScore = player2->Score();
         lastTotalScoreBoard = currentTotalScoreBoard;
 
+        sensor1->LockSensor(); 
+        sensor2->LockSensor();
+
         waitingReset = true;
         resetTimer = 0.0f;
     }
