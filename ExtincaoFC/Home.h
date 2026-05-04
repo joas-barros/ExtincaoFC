@@ -17,13 +17,18 @@
 
 #include "Game.h"
 #include "Sprite.h"
+#include "Audio.h"
 
 // ------------------------------------------------------------------------------
 
 class Home : public Game
 {
 private:
-    Sprite* backg = nullptr;       // pano de fundo
+    Sprite* titleBg;
+    Sprite* helpBg;
+    Audio* homeSound;
+
+    bool showingHelp; // Controla qual tela está sendo exibida
 
 public:
     void Init();                    // inicialização

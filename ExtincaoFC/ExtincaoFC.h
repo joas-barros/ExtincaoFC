@@ -33,7 +33,7 @@
 
 // ------------------------------------------------------------------------------
 
-enum Sounds { GOAL_SCREAM, INITIAL_WHISTLE, FINAL_WHISTLE, KICK, JUMP };
+enum Sounds { GOAL_SCREAM, INITIAL_WHISTLE, FINAL_WHISTLE, KICK, JUMP, CHAMPIONS_SONG };
 
 enum ObjTypes
 {
